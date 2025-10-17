@@ -10,4 +10,9 @@ public class Tests_00 {
         assertEquals(0, 0)
     }
 
+    @Test
+    fun Test_01() {
+        assertEquals(0, 0)
+    }
+
 }
