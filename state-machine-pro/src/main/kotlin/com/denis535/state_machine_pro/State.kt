@@ -1,6 +1,7 @@
 package com.denis535.state_machine_pro
 
 import com.denis535.state_machine_pro.Lifecycle as ELifecycle
+import com.denis535.state_machine_pro.Activity as EActivity
 
 public class State<TMachineUserData, TStateUserData> : AbstractStateInternal<TMachineUserData, TStateUserData> {
 
@@ -15,10 +16,197 @@ public class State<TMachineUserData, TStateUserData> : AbstractStateInternal<TMa
             return this.Lifecycle == ELifecycle.Closed
         }
 
-    public constructor() {
+    public override var Owner: Any? = null
+        get() {
+            assert(!this.IsClosed)
+            return field
+        }
+        private set(value) {
+            assert(!this.IsClosed)
+            if (value != null) {
+                assert(field == null)
+            } else {
+                assert(field != null)
+            }
+            field = value
+        }
+
+    public override val Machine: AbstractStateMachine<TMachineUserData, TStateUserData>?
+        get() {
+            assert(!this.IsClosed)
+            @Suppress("UNCHECKED_CAST") val machine = this.Owner as? AbstractStateMachine<TMachineUserData, TStateUserData>
+            if (machine != null) {
+                return machine
+            } else {
+                @Suppress("UNCHECKED_CAST") val parent = this.Owner as? AbstractState<TMachineUserData, TStateUserData>
+                if (parent != null) {
+                    return parent.Machine
+                }
+            }
+            return null
+        }
+
+    public override val IsRoot: Boolean
+        get() {
+            assert(!this.IsClosed)
+            return this.Parent == null
+        }
+    public override val Root: AbstractState<TMachineUserData, TStateUserData>
+        get() {
+            assert(!this.IsClosed)
+            this.Parent?.let {
+                return it.Root
+            }
+            return this
+        }
+
+    public override val Parent: AbstractState<TMachineUserData, TStateUserData>?
+        get() {
+            assert(!this.IsClosed)
+            @Suppress("UNCHECKED_CAST") return this.Owner as? AbstractState<TMachineUserData, TStateUserData>
+        }
+    public override val Ancestors: Sequence<AbstractState<TMachineUserData, TStateUserData>>
+        get() {
+            assert(!this.IsClosed)
+            return sequence {
+                this@State.Parent?.let {
+                    this.yield(it)
+                    this.yieldAll(it.Ancestors)
+                }
+            }
+        }
+    public override val AncestorsAndSelf: Sequence<AbstractState<TMachineUserData, TStateUserData>>
+        get() {
+            assert(!this.IsClosed)
+            return sequence {
+                this.yield(this@State)
+                this.yieldAll(this@State.Ancestors)
+            }
+        }
+
+    public override var Activity: EActivity = EActivity.Inactive
+        get() {
+            assert(!this.IsClosed)
+            return field
+        }
+        set(value) {
+            assert(!this.IsClosed)
+            assert(this.Owner != null)
+            assert(field != value)
+            field = value
+        }
+
+    public override val UserData: TStateUserData
+        get() {
+            assert(!this.IsClosed)
+            return field
+        }
+
+    public var OnCloseCallback: (() -> Unit)? = null
+        get() {
+            assert(!this.IsClosed)
+            return field
+        }
+        set(value) {
+            assert(!this.IsClosed)
+            if (value != null) {
+                assert(field == null)
+            } else {
+                assert(field != null)
+            }
+            field = value
+        }
+
+    public var OnAttachCallback: ((Any?) -> Unit)? = null
+        get() {
+            assert(!this.IsClosed)
+            return field
+        }
+        set(value) {
+            assert(!this.IsClosed)
+            if (value != null) {
+                assert(field == null)
+            } else {
+                assert(field != null)
+            }
+            field = value
+        }
+    public var OnDetachCallback: ((Any?) -> Unit)? = null
+        get() {
+            assert(!this.IsClosed)
+            return field
+        }
+        set(value) {
+            assert(!this.IsClosed)
+            if (value != null) {
+                assert(field == null)
+            } else {
+                assert(field != null)
+            }
+            field = value
+        }
+
+    public var OnActivateCallback: ((Any?) -> Unit)? = null
+        get() {
+            assert(!this.IsClosed)
+            return field
+        }
+        set(value) {
+            assert(!this.IsClosed)
+            if (value != null) {
+                assert(field == null)
+            } else {
+                assert(field != null)
+            }
+            field = value
+        }
+    public var OnDeactivateCallback: ((Any?) -> Unit)? = null
+        get() {
+            assert(!this.IsClosed)
+            return field
+        }
+        set(value) {
+            assert(!this.IsClosed)
+            if (value != null) {
+                assert(field == null)
+            } else {
+                assert(field != null)
+            }
+            field = value
+        }
+
+    public constructor(userData: TStateUserData) {
+        this.UserData = userData
     }
 
     public override fun close() {
+        assert(!this.IsClosed)
+        this.Lifecycle = ELifecycle.Closing
+        this.OnCloseCallback?.invoke()
+        this.Lifecycle = ELifecycle.Closed
+    }
+
+    protected override fun Attach(machine: AbstractStateMachine<TMachineUserData, TStateUserData>, argument: Any?) {
+    }
+    protected override fun Attach(parent: AbstractState<TMachineUserData, TStateUserData>, argument: Any?) {
+    }
+
+    protected override fun Detach(machine: AbstractStateMachine<TMachineUserData, TStateUserData>, argument: Any?) {
+    }
+    protected override fun Detach(parent: AbstractState<TMachineUserData, TStateUserData>, argument: Any?) {
+    }
+
+    protected override fun Activate(argument: Any?) {
+    }
+    protected override fun Deactivate(argument: Any?) {
+    }
+
+    public override fun toString(): String {
+        return if (this.UserData != null) {
+            "State: " + this.UserData.toString()
+        } else {
+            "State"
+        }
     }
 
 }

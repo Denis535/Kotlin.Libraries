@@ -17,36 +17,36 @@ public class StateMachine<TMachineUserData, TStateUserData> : AbstractStateMachi
 
     public override var Root: AbstractState<TMachineUserData, TStateUserData>? = null
         get() {
-            assert(!this.IsClosed) { "StateMachine $this must be non-closed" }
+            assert(!this.IsClosed)
             return field
         }
         private set(value) {
-            assert(!this.IsClosed) { "StateMachine $this must be non-closed" }
-            if (field != null) {
-                require(value == null) { "Argument 'value' ($value) must be null" }
+            assert(!this.IsClosed)
+            if (value != null) {
+                assert(field == null)
             } else {
-                require(value != null) { "Argument 'value' must be non-null" }
+                assert(field != null)
             }
             field = value
         }
 
     public override val UserData: TMachineUserData
         get() {
-            assert(!this.IsClosed) { "StateMachine $this must be non-closed" }
+            assert(!this.IsClosed)
             return field
         }
 
     public var OnCloseCallback: (() -> Unit)? = null
         get() {
-            assert(!this.IsClosed) { "StateMachine $this must be non-closed" }
+            assert(!this.IsClosed)
             return field
         }
         set(value) {
-            assert(!this.IsClosed) { "StateMachine $this must be non-closed" }
-            if (field != null) {
-                require(value == null) { "Argument 'value' ($value) must be null" }
+            assert(!this.IsClosed)
+            if (value != null) {
+                assert(field == null)
             } else {
-                require(value != null) { "Argument 'value' must be non-null" }
+                assert(field != null)
             }
             field = value
         }
@@ -56,11 +56,11 @@ public class StateMachine<TMachineUserData, TStateUserData> : AbstractStateMachi
     }
 
     public override fun close() {
-        assert(!this.IsClosed) { "StateMachine $this must be non-closed" }
+        assert(!this.IsClosed)
         this.Lifecycle = ELifecycle.Closing
         this.OnCloseCallback?.invoke()
         this.Root?.let {
-            assert(it.IsClosed) { "StateMachine $this must have no $it root" }
+            assert(it.IsClosed)
         }
         this.Lifecycle = ELifecycle.Closed
     }
@@ -68,7 +68,7 @@ public class StateMachine<TMachineUserData, TStateUserData> : AbstractStateMachi
     public fun SetRoot(
         root: AbstractState<TMachineUserData, TStateUserData>?, argument: Any?, callback: ((AbstractState<TMachineUserData, TStateUserData>, Any?) -> Unit)? = null
     ) {
-        assert(!this.IsClosed) { "StateMachine $this must be non-closed" }
+        assert(!this.IsClosed)
         this.Root?.let {
             this.RemoveRoot(it, argument, callback)
         }
@@ -80,10 +80,10 @@ public class StateMachine<TMachineUserData, TStateUserData> : AbstractStateMachi
     private fun AddRoot(
         root: AbstractState<TMachineUserData, TStateUserData>, argument: Any?
     ) {
-        require(!root.IsClosed) { "Argument 'root' ($root) must be non-closed" }
-        require(root.Owner == null) { "Argument 'root' ($root) must have no ${root.Owner} owner" }
-        assert(!this.IsClosed) { "StateMachine $this must be non-closed" }
-        assert(this.Root == null) { "StateMachine $this must have no ${this.Root} root" }
+        require(!root.IsClosed)
+        require(root.Owner == null)
+        assert(!this.IsClosed)
+        assert(this.Root == null)
         root.AsInternal().let {
             this.Root = it
             it.Attach(this, argument)
@@ -93,10 +93,10 @@ public class StateMachine<TMachineUserData, TStateUserData> : AbstractStateMachi
     private fun RemoveRoot(
         root: AbstractState<TMachineUserData, TStateUserData>, argument: Any?, callback: ((AbstractState<TMachineUserData, TStateUserData>, Any?) -> Unit)? = null
     ) {
-        require(!root.IsClosed) { "Argument 'root' ($root) must be non-closed" }
-        require(root.Owner == this) { "Argument 'root' ($root) must have $this owner" }
-        assert(!this.IsClosed) { "StateMachine $this must be non-closed" }
-        assert(this.Root == root) { "StateMachine $this must have $root root" }
+        require(!root.IsClosed)
+        require(root.Owner == this)
+        assert(!this.IsClosed)
+        assert(this.Root == root)
         root.AsInternal().let {
             it.Detach(this, argument)
             this.Root = null
