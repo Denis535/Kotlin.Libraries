@@ -2,8 +2,8 @@ package com.denis535.state_machine_pro
 
 public interface AbstractStateMachine<TMachineUserData, TStateUserData> {
 
-    public val IsDisposing: Boolean
-    public val IsDisposed: Boolean
+    public val IsClosing: Boolean
+    public val IsClosed: Boolean
 
     public val Root: AbstractState<TMachineUserData, TStateUserData>?
 
@@ -11,8 +11,8 @@ public interface AbstractStateMachine<TMachineUserData, TStateUserData> {
 
 }
 
-internal interface AbstractStateMachineMutable<TMachineUserData, TStateUserData> : AbstractStateMachine<TMachineUserData, TStateUserData> {
+internal interface AbstractStateMachineInternal<TMachineUserData, TStateUserData> : AbstractStateMachine<TMachineUserData, TStateUserData>, AutoCloseable
 
-    public fun Dispose()
-
+internal fun <TMachineUserData, TStateUserData> AbstractStateMachine<TMachineUserData, TStateUserData>.AsInternal(): AbstractStateMachineInternal<TMachineUserData, TStateUserData> {
+    return this as AbstractStateMachineInternal<TMachineUserData, TStateUserData>
 }
