@@ -51,6 +51,7 @@ public class State<TMachineUserData, TStateUserData> : AbstractStateMutable<TMac
     public override val Root: AbstractState<TMachineUserData, TStateUserData>
         get() {
             assert(!this.IsClosed)
+//            return this.Parent?.Root ?: this
             this.Parent?.let {
                 return it.Root
             }
@@ -205,21 +206,55 @@ public class State<TMachineUserData, TStateUserData> : AbstractStateMutable<TMac
     }
 
     internal override fun Attach(machine: AbstractStateMachine<TMachineUserData, TStateUserData>, argument: Any?) {
+        assert(!this.IsClosed)
+        assert(this.Owner == null)
+        this.Owner = machine
+        this.OnAttachCallback?.invoke(argument)
+        if (true) {
+            this.Activate(argument)
+        }
     }
 
     internal override fun Attach(parent: AbstractState<TMachineUserData, TStateUserData>, argument: Any?) {
+        assert(!this.IsClosed)
+        assert(this.Owner == null)
+        this.Owner = parent
+        this.OnAttachCallback?.invoke(argument)
+        if (this.Parent!!.Activity == EActivity.Active) {
+            this.Activate(argument)
+        }
     }
 
     internal override fun Detach(machine: AbstractStateMachine<TMachineUserData, TStateUserData>, argument: Any?) {
+        assert(!this.IsClosed)
+        assert(this.Owner == machine)
+        if (true) {
+            this.Deactivate(argument)
+        }
+        this.OnDetachCallback?.invoke(argument)
+        this.Owner = null
     }
 
     internal override fun Detach(parent: AbstractState<TMachineUserData, TStateUserData>, argument: Any?) {
+        assert(!this.IsClosed)
+        assert(this.Owner == parent)
+        if (this.Activity == EActivity.Active) {
+            this.Deactivate(argument)
+        }
+        this.OnDetachCallback?.invoke(argument)
+        this.Owner = null
     }
 
     internal override fun Activate(argument: Any?) {
+        this.Activity = EActivity.Activating
+        this.OnActivateCallback?.invoke(argument)
+        this.Activity = EActivity.Active
     }
 
     internal override fun Deactivate(argument: Any?) {
+        this.Activity = EActivity.Deactivating
+        this.OnDeactivateCallback?.invoke(argument)
+        this.Activity = EActivity.Inactive
     }
 
 }
