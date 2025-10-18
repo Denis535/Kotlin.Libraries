@@ -3,7 +3,7 @@ package com.denis535.state_machine_pro
 import com.denis535.state_machine_pro.Lifecycle as ELifecycle
 import com.denis535.state_machine_pro.Activity as EActivity
 
-public class State<TMachineUserData, TStateUserData> : AbstractStateInternal<TMachineUserData, TStateUserData> {
+public class State<TMachineUserData, TStateUserData> : AbstractStateMutable<TMachineUserData, TStateUserData> {
 
     private var Lifecycle = ELifecycle.Alive
 
@@ -34,14 +34,11 @@ public class State<TMachineUserData, TStateUserData> : AbstractStateInternal<TMa
     public override val Machine: AbstractStateMachine<TMachineUserData, TStateUserData>?
         get() {
             assert(!this.IsClosed)
-            @Suppress("UNCHECKED_CAST") val machine = this.Owner as? AbstractStateMachine<TMachineUserData, TStateUserData>
-            if (machine != null) {
-                return machine
-            } else {
-                @Suppress("UNCHECKED_CAST") val parent = this.Owner as? AbstractState<TMachineUserData, TStateUserData>
-                if (parent != null) {
-                    return parent.Machine
-                }
+            @Suppress("UNCHECKED_CAST") (this.Owner as? AbstractStateMachine<TMachineUserData, TStateUserData>)?.let {
+                return it
+            }
+            @Suppress("UNCHECKED_CAST") (this.Owner as? AbstractState<TMachineUserData, TStateUserData>)?.let {
+                return it.Machine
             }
             return null
         }
@@ -63,7 +60,10 @@ public class State<TMachineUserData, TStateUserData> : AbstractStateInternal<TMa
     public override val Parent: AbstractState<TMachineUserData, TStateUserData>?
         get() {
             assert(!this.IsClosed)
-            @Suppress("UNCHECKED_CAST") return this.Owner as? AbstractState<TMachineUserData, TStateUserData>
+            @Suppress("UNCHECKED_CAST") (this.Owner as? AbstractState<TMachineUserData, TStateUserData>)?.let {
+                return it
+            }
+            return null
         }
     public override val Ancestors: Sequence<AbstractState<TMachineUserData, TStateUserData>>
         get() {
@@ -89,11 +89,29 @@ public class State<TMachineUserData, TStateUserData> : AbstractStateInternal<TMa
             assert(!this.IsClosed)
             return field
         }
-        set(value) {
+        private set(value) {
             assert(!this.IsClosed)
             assert(this.Owner != null)
             assert(field != value)
             field = value
+        }
+
+    public override val Children: Sequence<AbstractState<TMachineUserData, TStateUserData>>
+        get() {
+            assert(!this.IsClosed)
+            return sequence { }
+        }
+    public override val Descendants: Sequence<AbstractState<TMachineUserData, TStateUserData>>
+        get() {
+            assert(!this.IsClosed)
+            return sequence {}
+        }
+    public override val DescendantsAndSelf: Sequence<AbstractState<TMachineUserData, TStateUserData>>
+        get() {
+            assert(!this.IsClosed)
+            return sequence {
+                this.yield(this@State)
+            }
         }
 
     public override val UserData: TStateUserData
@@ -186,27 +204,22 @@ public class State<TMachineUserData, TStateUserData> : AbstractStateInternal<TMa
         this.Lifecycle = ELifecycle.Closed
     }
 
-    protected override fun Attach(machine: AbstractStateMachine<TMachineUserData, TStateUserData>, argument: Any?) {
-    }
-    protected override fun Attach(parent: AbstractState<TMachineUserData, TStateUserData>, argument: Any?) {
+    internal override fun Attach(machine: AbstractStateMachine<TMachineUserData, TStateUserData>, argument: Any?) {
     }
 
-    protected override fun Detach(machine: AbstractStateMachine<TMachineUserData, TStateUserData>, argument: Any?) {
-    }
-    protected override fun Detach(parent: AbstractState<TMachineUserData, TStateUserData>, argument: Any?) {
+    internal override fun Attach(parent: AbstractState<TMachineUserData, TStateUserData>, argument: Any?) {
     }
 
-    protected override fun Activate(argument: Any?) {
-    }
-    protected override fun Deactivate(argument: Any?) {
+    internal override fun Detach(machine: AbstractStateMachine<TMachineUserData, TStateUserData>, argument: Any?) {
     }
 
-    public override fun toString(): String {
-        return if (this.UserData != null) {
-            "State: " + this.UserData.toString()
-        } else {
-            "State"
-        }
+    internal override fun Detach(parent: AbstractState<TMachineUserData, TStateUserData>, argument: Any?) {
+    }
+
+    internal override fun Activate(argument: Any?) {
+    }
+
+    internal override fun Deactivate(argument: Any?) {
     }
 
 }

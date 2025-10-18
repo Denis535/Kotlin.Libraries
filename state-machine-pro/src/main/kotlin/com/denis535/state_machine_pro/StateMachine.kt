@@ -2,7 +2,7 @@ package com.denis535.state_machine_pro
 
 import com.denis535.state_machine_pro.Lifecycle as ELifecycle
 
-public class StateMachine<TMachineUserData, TStateUserData> : AbstractStateMachineInternal<TMachineUserData, TStateUserData> {
+public class StateMachine<TMachineUserData, TStateUserData> : AbstractStateMachineMutable<TMachineUserData, TStateUserData> {
 
     private var Lifecycle = ELifecycle.Alive
 
@@ -84,7 +84,7 @@ public class StateMachine<TMachineUserData, TStateUserData> : AbstractStateMachi
         require(root.Owner == null)
         assert(!this.IsClosed)
         assert(this.Root == null)
-        root.AsInternal().let {
+        root.AsMutable().let {
             this.Root = it
             it.Attach(this, argument)
         }
@@ -97,7 +97,7 @@ public class StateMachine<TMachineUserData, TStateUserData> : AbstractStateMachi
         require(root.Owner == this)
         assert(!this.IsClosed)
         assert(this.Root == root)
-        root.AsInternal().let {
+        root.AsMutable().let {
             it.Detach(this, argument)
             this.Root = null
             if (callback != null) {
@@ -105,14 +105,6 @@ public class StateMachine<TMachineUserData, TStateUserData> : AbstractStateMachi
             } else {
                 it.close()
             }
-        }
-    }
-
-    public override fun toString(): String {
-        return if (this.UserData != null) {
-            "StateMachine: " + this.UserData.toString()
-        } else {
-            "StateMachine"
         }
     }
 
