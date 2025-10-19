@@ -34,13 +34,7 @@ public class State<TMachineUserData, TStateUserData> : AbstractStateMutable<TMac
     public override val Machine: AbstractStateMachine<TMachineUserData, TStateUserData>?
         get() {
             assert(!this.IsClosed)
-            @Suppress("UNCHECKED_CAST") (this.Owner as? AbstractStateMachine<TMachineUserData, TStateUserData>)?.let {
-                return it
-            }
-            @Suppress("UNCHECKED_CAST") (this.Owner as? AbstractState<TMachineUserData, TStateUserData>)?.let {
-                return it.Machine
-            }
-            return null
+            return (this.Owner as? AbstractStateMachine<TMachineUserData, TStateUserData>) ?: (this.Owner as? AbstractState<TMachineUserData, TStateUserData>)?.Machine
         }
 
     public override val IsRoot: Boolean
@@ -51,28 +45,21 @@ public class State<TMachineUserData, TStateUserData> : AbstractStateMutable<TMac
     public override val Root: AbstractState<TMachineUserData, TStateUserData>
         get() {
             assert(!this.IsClosed)
-//            return this.Parent?.Root ?: this
-            this.Parent?.let {
-                return it.Root
-            }
-            return this
+            return this.Parent?.Root ?: this
         }
 
     public override val Parent: AbstractState<TMachineUserData, TStateUserData>?
         get() {
             assert(!this.IsClosed)
-            @Suppress("UNCHECKED_CAST") (this.Owner as? AbstractState<TMachineUserData, TStateUserData>)?.let {
-                return it
-            }
-            return null
+            return this.Owner as? AbstractState<TMachineUserData, TStateUserData>
         }
     public override val Ancestors: Sequence<AbstractState<TMachineUserData, TStateUserData>>
         get() {
             assert(!this.IsClosed)
             return sequence {
-                this@State.Parent?.let {
-                    this.yield(it)
-                    this.yieldAll(it.Ancestors)
+                if (this@State.Parent != null) {
+                    this.yield(this@State.Parent!!)
+                    this.yieldAll(this@State.Parent!!.Ancestors)
                 }
             }
         }
