@@ -31,7 +31,11 @@ public class State<TMachineUserData, TStateUserData> : AbstractState<TMachineUse
     public override val Machine: AbstractStateMachine<TMachineUserData, TStateUserData>?
         get() {
             assert(!this.IsClosed)
-            return (this.Owner as? AbstractStateMachine<TMachineUserData, TStateUserData>) ?: (this.Owner as? AbstractState<TMachineUserData, TStateUserData>)?.Machine
+            return when (val owner = this.Owner) {
+                is AbstractStateMachine<*, *> -> owner as AbstractStateMachine<TMachineUserData, TStateUserData>
+                is AbstractState<*, *> -> owner.Machine as AbstractStateMachine<TMachineUserData, TStateUserData>
+                else -> null
+            }
         }
 
     public override val IsRoot: Boolean
@@ -76,7 +80,6 @@ public class State<TMachineUserData, TStateUserData> : AbstractState<TMachineUse
         }
         private set(value) {
             assert(!this.IsClosed)
-            assert(this.Owner != null)
             assert(field != value)
             field = value
         }
@@ -166,11 +169,9 @@ public class State<TMachineUserData, TStateUserData> : AbstractState<TMachineUse
 
     public override fun close() {
         assert(!this.IsClosed)
-        this.Owner?.let { owner ->
-            when (owner) {
-                is AbstractStateMachine<*, *> -> assert(owner.IsClosing)
-                is AbstractState<*, *> -> assert(owner.IsClosing)
-            }
+        when (val owner = this.Owner) {
+            is AbstractStateMachine<*, *> -> assert(owner.IsClosing)
+            is AbstractState<*, *> -> assert(owner.IsClosing)
         }
         this.Lifecycle = ELifecycle.Closing
         this.OnCloseCallback?.invoke()
