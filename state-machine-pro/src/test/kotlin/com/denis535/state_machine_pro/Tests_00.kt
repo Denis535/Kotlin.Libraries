@@ -17,10 +17,10 @@ public class Tests_00 {
             assertEquals(machine.Root!!.Machine, machine)
             assertEquals(machine.Root!!.Activity, Activity.Active)
             // SetState b
-            // machine.SetRoot( ChildrenableState( "b" ), null, null )
-            // assertNotEquals( machine.Root, null )
-            // assertEquals( machine.Root!!.Machine,  machine  )
-            // assertEquals( machine.Root!!.Activity,  Activity.Active  )
+            machine.SetRoot(ChildrenableState("b"), null, null)
+            assertNotEquals(machine.Root, null)
+            assertEquals(machine.Root!!.Machine, machine)
+            assertEquals(machine.Root!!.Activity, Activity.Active)
             // SetState null
             machine.SetRoot(null, null, null)
             assertEquals(machine.Root, null)
@@ -40,10 +40,10 @@ public class Tests_00 {
             assertEquals(machine.Root!!.Machine, machine)
             assertEquals(machine.Root!!.Activity, Activity.Active)
             // SetState b
-            // machine.SetRoot( ChildrenableState( "b" ), null, null )
-            // assertNotEquals( machine.Root, null )
-            // assertEquals( machine.Root!!.Machine,  machine  )
-            // assertEquals( machine.Root!!.Activity,  Activity.Active  )
+            machine.SetRoot(ChildrenableState("b"), null, null)
+            assertNotEquals(machine.Root, null)
+            assertEquals(machine.Root!!.Machine, machine)
+            assertEquals(machine.Root!!.Activity, Activity.Active)
         }
     }
 
@@ -60,10 +60,10 @@ public class Tests_00 {
             assertEquals(machine.Root!!.Machine, machine)
             assertEquals(machine.Root!!.Activity, Activity.Active)
             // SetState b
-            // machine.SetRoot( ChildrenableState( "b" ), null, null )
-            // assertNotEquals( machine.Root, null )
-            // assertEquals( machine.Root!!.Machine,  machine  )
-            // assertEquals( machine.Root!!.Activity,  Activity.Active  )
+            machine.SetRoot(ChildrenableState("b"), null, null)
+            assertNotEquals(machine.Root, null)
+            assertEquals(machine.Root!!.Machine, machine)
+            assertEquals(machine.Root!!.Activity, Activity.Active)
         }
     }
 
