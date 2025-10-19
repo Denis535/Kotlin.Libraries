@@ -169,6 +169,7 @@ public class State<TMachineUserData, TStateUserData> : AbstractStateMutable<TMac
 
     public override fun close() {
         assert(!this.IsClosed)
+        assert(this.Owner == null || (this.Owner as AbstractStateMachine<*, *>).IsClosing)
         this.Lifecycle = ELifecycle.Closing
         this.OnCloseCallback?.invoke()
         this.Lifecycle = ELifecycle.Closed
