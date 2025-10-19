@@ -1,7 +1,5 @@
 package com.denis535.state_machine_pro
 
-import com.denis535.state_machine_pro.Lifecycle as ELifecycle
-
 public class StateMachine<TMachineUserData, TStateUserData> : AbstractStateMachine<TMachineUserData, TStateUserData> {
 
     private var Lifecycle = ELifecycle.Alive
@@ -36,7 +34,7 @@ public class StateMachine<TMachineUserData, TStateUserData> : AbstractStateMachi
             return field
         }
 
-    public var OnCloseCallback: (() -> Unit)? = null
+    public var OnCloseCallback: Proc? = null
         get() {
             assert(!this.IsClosed)
             return field
@@ -64,7 +62,7 @@ public class StateMachine<TMachineUserData, TStateUserData> : AbstractStateMachi
     }
 
     public fun SetRoot(
-        root: AbstractState<TMachineUserData, TStateUserData>?, argument: Any?, callback: ((AbstractState<TMachineUserData, TStateUserData>, Any?) -> Unit)? = null
+        root: AbstractState<TMachineUserData, TStateUserData>?, argument: Any?, callback: Proc2<AbstractState<TMachineUserData, TStateUserData>, Any?>? = null
     ) {
         assert(!this.IsClosed)
         if (this.Root != null) {
@@ -87,7 +85,7 @@ public class StateMachine<TMachineUserData, TStateUserData> : AbstractStateMachi
     }
 
     private fun RemoveRoot(
-        root: AbstractState<TMachineUserData, TStateUserData>, argument: Any?, callback: ((AbstractState<TMachineUserData, TStateUserData>, Any?) -> Unit)? = null
+        root: AbstractState<TMachineUserData, TStateUserData>, argument: Any?, callback: Proc2<AbstractState<TMachineUserData, TStateUserData>, Any?>? = null
     ) {
         require(!root.IsClosed)
         require(root.Owner == this)

@@ -1,8 +1,5 @@
 package com.denis535.state_machine_pro
 
-import com.denis535.state_machine_pro.Lifecycle as ELifecycle
-import com.denis535.state_machine_pro.Activity as EActivity
-
 public class State<TMachineUserData, TStateUserData> : AbstractState<TMachineUserData, TStateUserData> {
 
     private var Lifecycle = ELifecycle.Alive
@@ -90,7 +87,7 @@ public class State<TMachineUserData, TStateUserData> : AbstractState<TMachineUse
             return field
         }
 
-    public var OnCloseCallback: (() -> Unit)? = null
+    public var OnCloseCallback: Proc? = null
         get() {
             assert(!this.IsClosed)
             return field
@@ -105,7 +102,7 @@ public class State<TMachineUserData, TStateUserData> : AbstractState<TMachineUse
             field = value
         }
 
-    public var OnAttachCallback: ((Any?) -> Unit)? = null
+    public var OnAttachCallback: Proc1<Any?>? = null
         get() {
             assert(!this.IsClosed)
             return field
@@ -119,7 +116,7 @@ public class State<TMachineUserData, TStateUserData> : AbstractState<TMachineUse
             }
             field = value
         }
-    public var OnDetachCallback: ((Any?) -> Unit)? = null
+    public var OnDetachCallback: Proc1<Any?>? = null
         get() {
             assert(!this.IsClosed)
             return field
@@ -134,7 +131,7 @@ public class State<TMachineUserData, TStateUserData> : AbstractState<TMachineUse
             field = value
         }
 
-    public var OnActivateCallback: ((Any?) -> Unit)? = null
+    public var OnActivateCallback: Proc1<Any?>? = null
         get() {
             assert(!this.IsClosed)
             return field
@@ -148,7 +145,7 @@ public class State<TMachineUserData, TStateUserData> : AbstractState<TMachineUse
             }
             field = value
         }
-    public var OnDeactivateCallback: ((Any?) -> Unit)? = null
+    public var OnDeactivateCallback: Proc1<Any?>? = null
         get() {
             assert(!this.IsClosed)
             return field

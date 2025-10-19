@@ -1,8 +1,5 @@
 package com.denis535.state_machine_pro
 
-import com.denis535.state_machine_pro.Lifecycle as ELifecycle
-import com.denis535.state_machine_pro.Activity as EActivity
-
 public class ChildrenableState<TMachineUserData, TStateUserData> : AbstractState<TMachineUserData, TStateUserData> {
 
     private var Lifecycle = ELifecycle.Alive
@@ -95,7 +92,7 @@ public class ChildrenableState<TMachineUserData, TStateUserData> : AbstractState
             return field
         }
 
-    public var SortDelegate: ((MutableList<AbstractState<TMachineUserData, TStateUserData>>) -> Unit)? = null
+    public var SortDelegate: Proc1<MutableList<AbstractState<TMachineUserData, TStateUserData>>>? = null
         get() {
             assert(!this.IsClosed)
             return field
@@ -116,7 +113,7 @@ public class ChildrenableState<TMachineUserData, TStateUserData> : AbstractState
             return field
         }
 
-    public var OnCloseCallback: (() -> Unit)? = null
+    public var OnCloseCallback: Proc? = null
         get() {
             assert(!this.IsClosed)
             return field
@@ -131,7 +128,7 @@ public class ChildrenableState<TMachineUserData, TStateUserData> : AbstractState
             field = value
         }
 
-    public var OnAttachCallback: ((Any?) -> Unit)? = null
+    public var OnAttachCallback: Proc1<Any?>? = null
         get() {
             assert(!this.IsClosed)
             return field
@@ -145,7 +142,7 @@ public class ChildrenableState<TMachineUserData, TStateUserData> : AbstractState
             }
             field = value
         }
-    public var OnDetachCallback: ((Any?) -> Unit)? = null
+    public var OnDetachCallback: Proc1<Any?>? = null
         get() {
             assert(!this.IsClosed)
             return field
@@ -160,7 +157,7 @@ public class ChildrenableState<TMachineUserData, TStateUserData> : AbstractState
             field = value
         }
 
-    public var OnActivateCallback: ((Any?) -> Unit)? = null
+    public var OnActivateCallback: Proc1<Any?>? = null
         get() {
             assert(!this.IsClosed)
             return field
@@ -174,7 +171,7 @@ public class ChildrenableState<TMachineUserData, TStateUserData> : AbstractState
             }
             field = value
         }
-    public var OnDeactivateCallback: ((Any?) -> Unit)? = null
+    public var OnDeactivateCallback: Proc1<Any?>? = null
         get() {
             assert(!this.IsClosed)
             return field
@@ -282,7 +279,7 @@ public class ChildrenableState<TMachineUserData, TStateUserData> : AbstractState
         }
     }
 
-    public fun RemoveChild(child: AbstractState<TMachineUserData, TStateUserData>, argument: Any?, callback: ((AbstractState<TMachineUserData, TStateUserData>, Any?) -> Unit)? = null) {
+    public fun RemoveChild(child: AbstractState<TMachineUserData, TStateUserData>, argument: Any?, callback: Proc2<AbstractState<TMachineUserData, TStateUserData>, Any?>? = null) {
         require(!child.IsClosed)
         require(child.Owner == this)
         assert(!this.IsClosed)
@@ -296,7 +293,7 @@ public class ChildrenableState<TMachineUserData, TStateUserData> : AbstractState
         }
     }
 
-    public fun RemoveChildren(predicate: (AbstractState<TMachineUserData, TStateUserData>) -> Boolean, argument: Any?, callback: ((AbstractState<TMachineUserData, TStateUserData>, Any?) -> Unit)? = null): Int {
+    public fun RemoveChildren(predicate: Predicate1<AbstractState<TMachineUserData, TStateUserData>>, argument: Any?, callback: Proc2<AbstractState<TMachineUserData, TStateUserData>, Any?>? = null): Int {
         assert(!this.IsClosed)
         var count = 0
         for (child in this.Children.reversed().filter(predicate)) {
