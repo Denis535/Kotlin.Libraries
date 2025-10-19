@@ -59,9 +59,7 @@ public class StateMachine<TMachineUserData, TStateUserData> : AbstractStateMachi
         assert(!this.IsClosed)
         this.Lifecycle = ELifecycle.Closing
         this.OnCloseCallback?.invoke()
-        this.Root?.let {
-            assert(it.IsClosed)
-        }
+        assert(this.Root == null || this.Root!!.IsClosed)
         this.Lifecycle = ELifecycle.Closed
     }
 
@@ -69,11 +67,11 @@ public class StateMachine<TMachineUserData, TStateUserData> : AbstractStateMachi
         root: AbstractState<TMachineUserData, TStateUserData>?, argument: Any?, callback: ((AbstractState<TMachineUserData, TStateUserData>, Any?) -> Unit)? = null
     ) {
         assert(!this.IsClosed)
-        this.Root?.let {
-            this.RemoveRoot(it, argument, callback)
+        if (this.Root != null) {
+            this.RemoveRoot(this.Root!!, argument, callback)
         }
-        root?.let {
-            this.AddRoot(it, argument)
+        if (root != null) {
+            this.AddRoot(root, argument)
         }
     }
 
@@ -84,10 +82,8 @@ public class StateMachine<TMachineUserData, TStateUserData> : AbstractStateMachi
         require(root.Owner == null)
         assert(!this.IsClosed)
         assert(this.Root == null)
-        root.AsMutable().let {
-            this.Root = it
-            it.Attach(this, argument)
-        }
+        this.Root = root
+        this.Root!!.AsMutable().Attach(this, argument)
     }
 
     private fun RemoveRoot(
@@ -97,14 +93,12 @@ public class StateMachine<TMachineUserData, TStateUserData> : AbstractStateMachi
         require(root.Owner == this)
         assert(!this.IsClosed)
         assert(this.Root == root)
-        root.AsMutable().let {
-            it.Detach(this, argument)
-            this.Root = null
-            if (callback != null) {
-                callback.invoke(it, argument)
-            } else {
-                it.close()
-            }
+        this.Root!!.AsMutable().Detach(this, argument)
+        this.Root = null
+        if (callback != null) {
+            callback.invoke(root, argument)
+        } else {
+            root.AsMutable().close()
         }
     }
 

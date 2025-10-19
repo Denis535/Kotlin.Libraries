@@ -17,10 +17,6 @@ public abstract class AbstractState<TMachineUserData, TStateUserData> {
 
     public abstract val Activity: Activity
 
-    public abstract val Children: Sequence<AbstractState<TMachineUserData, TStateUserData>>
-    public abstract val Descendants: Sequence<AbstractState<TMachineUserData, TStateUserData>>
-    public abstract val DescendantsAndSelf: Sequence<AbstractState<TMachineUserData, TStateUserData>>
-
     public abstract val UserData: TStateUserData
 
     public constructor()

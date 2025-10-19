@@ -84,24 +84,6 @@ public class State<TMachineUserData, TStateUserData> : AbstractStateMutable<TMac
             field = value
         }
 
-    public override val Children: Sequence<AbstractState<TMachineUserData, TStateUserData>>
-        get() {
-            assert(!this.IsClosed)
-            return sequence { }
-        }
-    public override val Descendants: Sequence<AbstractState<TMachineUserData, TStateUserData>>
-        get() {
-            assert(!this.IsClosed)
-            return sequence {}
-        }
-    public override val DescendantsAndSelf: Sequence<AbstractState<TMachineUserData, TStateUserData>>
-        get() {
-            assert(!this.IsClosed)
-            return sequence {
-                this.yield(this@State)
-            }
-        }
-
     public override val UserData: TStateUserData
         get() {
             assert(!this.IsClosed)
