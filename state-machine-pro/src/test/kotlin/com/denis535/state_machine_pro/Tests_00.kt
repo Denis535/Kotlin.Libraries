@@ -51,7 +51,7 @@ public class Tests_00 {
     fun Test_02() {
         StateMachine2(null).apply {
             this.OnCloseCallback = {
-                this.Root!!.AsMutable().close()
+                this.Root!!.close()
             }
         }.use { machine ->
             // SetState a

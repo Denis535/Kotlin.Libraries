@@ -1,6 +1,6 @@
 package com.denis535.state_machine_pro
 
-public abstract class AbstractStateMachine<TMachineUserData, TStateUserData> {
+public abstract class AbstractStateMachine<TMachineUserData, TStateUserData> : AutoCloseable {
 
     public abstract val IsClosing: Boolean
     public abstract val IsClosed: Boolean
@@ -11,10 +11,6 @@ public abstract class AbstractStateMachine<TMachineUserData, TStateUserData> {
 
     public constructor()
 
-    internal fun AsMutable(): AbstractStateMachineMutable<TMachineUserData, TStateUserData> {
-        return this as AbstractStateMachineMutable<TMachineUserData, TStateUserData>
-    }
-
     public final override fun toString(): String {
         return if (this.UserData != null) {
             "StateMachine: " + this.UserData.toString()
@@ -22,11 +18,5 @@ public abstract class AbstractStateMachine<TMachineUserData, TStateUserData> {
             "StateMachine"
         }
     }
-
-}
-
-public abstract class AbstractStateMachineMutable<TMachineUserData, TStateUserData> : AbstractStateMachine<TMachineUserData, TStateUserData>, AutoCloseable {
-
-    public constructor()
 
 }

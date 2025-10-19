@@ -2,7 +2,7 @@ package com.denis535.state_machine_pro
 
 import com.denis535.state_machine_pro.Lifecycle as ELifecycle
 
-public class StateMachine<TMachineUserData, TStateUserData> : AbstractStateMachineMutable<TMachineUserData, TStateUserData> {
+public class StateMachine<TMachineUserData, TStateUserData> : AbstractStateMachine<TMachineUserData, TStateUserData> {
 
     private var Lifecycle = ELifecycle.Alive
 
@@ -83,7 +83,7 @@ public class StateMachine<TMachineUserData, TStateUserData> : AbstractStateMachi
         assert(!this.IsClosed)
         assert(this.Root == null)
         this.Root = root
-        this.Root!!.AsMutable().Attach(this, argument)
+        this.Root!!.Attach(this, argument)
     }
 
     private fun RemoveRoot(
@@ -93,12 +93,12 @@ public class StateMachine<TMachineUserData, TStateUserData> : AbstractStateMachi
         require(root.Owner == this)
         assert(!this.IsClosed)
         assert(this.Root == root)
-        this.Root!!.AsMutable().Detach(this, argument)
+        this.Root!!.Detach(this, argument)
         this.Root = null
         if (callback != null) {
             callback.invoke(root, argument)
         } else {
-            root.AsMutable().close()
+            root.close()
         }
     }
 

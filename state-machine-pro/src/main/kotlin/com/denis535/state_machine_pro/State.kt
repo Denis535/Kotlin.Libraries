@@ -3,7 +3,7 @@ package com.denis535.state_machine_pro
 import com.denis535.state_machine_pro.Lifecycle as ELifecycle
 import com.denis535.state_machine_pro.Activity as EActivity
 
-public class State<TMachineUserData, TStateUserData> : AbstractStateMutable<TMachineUserData, TStateUserData> {
+public class State<TMachineUserData, TStateUserData> : AbstractState<TMachineUserData, TStateUserData> {
 
     private var Lifecycle = ELifecycle.Alive
 
@@ -169,7 +169,13 @@ public class State<TMachineUserData, TStateUserData> : AbstractStateMutable<TMac
 
     public override fun close() {
         assert(!this.IsClosed)
-        assert(this.Owner == null || (this.Owner as AbstractStateMachine<*, *>).IsClosing)
+        if (this.Owner != null) {
+            if (this.Owner is AbstractStateMachine<*, *>) {
+                assert((this.Owner as AbstractStateMachine<*, *>).IsClosing)
+            } else if (this.Owner is AbstractState<*, *>) {
+                assert((this.Owner as AbstractState<*, *>).IsClosing)
+            }
+        }
         this.Lifecycle = ELifecycle.Closing
         this.OnCloseCallback?.invoke()
         this.Lifecycle = ELifecycle.Closed
