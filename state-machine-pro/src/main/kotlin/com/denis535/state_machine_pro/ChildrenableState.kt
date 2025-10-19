@@ -95,6 +95,21 @@ public class ChildrenableState<TMachineUserData, TStateUserData> : AbstractState
             return field
         }
 
+    public var SortDelegate: ((MutableList<AbstractState<TMachineUserData, TStateUserData>>) -> Unit)? = null
+        get() {
+            assert(!this.IsClosed)
+            return field
+        }
+        set(value) {
+            assert(!this.IsClosed)
+            if (value != null) {
+                assert(field == null)
+            } else {
+                assert(field != null)
+            }
+            field = value
+        }
+
     public override val UserData: TStateUserData
         get() {
             assert(!this.IsClosed)
@@ -248,6 +263,47 @@ public class ChildrenableState<TMachineUserData, TStateUserData> : AbstractState
         }
         this.OnDeactivateCallback?.invoke(argument)
         this.Activity = EActivity.Inactive
+    }
+
+    public fun AddChild(child: AbstractState<TMachineUserData, TStateUserData>, argument: Any?) {
+        require(!child.IsClosed)
+        require(child.Owner == null)
+        assert(!this.IsClosed)
+        assert(!this.Children.contains(child))
+        this.ChildrenMutable.add(child)
+        this.SortDelegate?.invoke(this.ChildrenMutable)
+        child.Attach(this, argument)
+    }
+
+    public fun AddChildren(children: Array<AbstractState<TMachineUserData, TStateUserData>>, argument: Any?) {
+        assert(!this.IsClosed)
+        for (child in children) {
+            this.AddChild(child, argument)
+        }
+    }
+
+    public fun RemoveChild(child: AbstractState<TMachineUserData, TStateUserData>, argument: Any?, callback: ((AbstractState<TMachineUserData, TStateUserData>, Any?) -> Unit)? = null) {
+        require(!child.IsClosed)
+        require(child.Owner == this)
+        assert(!this.IsClosed)
+        assert(this.Children.contains(child))
+        child.Detach(this, argument)
+        this.ChildrenMutable.remove(child)
+        if (callback != null) {
+            callback.invoke(child, argument)
+        } else {
+            child.close()
+        }
+    }
+
+    public fun RemoveChildren(predicate: (AbstractState<TMachineUserData, TStateUserData>) -> Boolean, argument: Any?, callback: ((AbstractState<TMachineUserData, TStateUserData>, Any?) -> Unit)? = null): Int {
+        assert(!this.IsClosed)
+        var count = 0
+        for (child in this.Children.reversed().filter(predicate)) {
+            this.RemoveChild(child, argument, callback)
+            count++
+        }
+        return count
     }
 
 }

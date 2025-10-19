@@ -31,11 +31,7 @@ public abstract class AbstractState<TMachineUserData, TStateUserData> : AutoClos
     internal abstract fun Deactivate(argument: Any?)
 
     public final override fun toString(): String {
-        return if (this.UserData != null) {
-            "State: " + this.UserData.toString()
-        } else {
-            "State"
-        }
+        return this.UserData?.toString() ?: "State"
     }
 
 }

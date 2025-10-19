@@ -12,11 +12,7 @@ public abstract class AbstractStateMachine<TMachineUserData, TStateUserData> : A
     public constructor()
 
     public final override fun toString(): String {
-        return if (this.UserData != null) {
-            "StateMachine: " + this.UserData.toString()
-        } else {
-            "StateMachine"
-        }
+        return this.UserData?.toString() ?: "StateMachine"
     }
 
 }
