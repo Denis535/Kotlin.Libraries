@@ -3,8 +3,8 @@ plugins {
     id("maven-publish")
 }
 
-group = "com.denis535"
-version = "1.0-SNAPSHOT"
+group = "io.github.denis535"
+version = "1.0-0"
 
 repositories {
     mavenCentral()
