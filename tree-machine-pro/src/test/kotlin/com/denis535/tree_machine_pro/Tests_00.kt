@@ -189,4 +189,96 @@ public class Tests_00 {
         }
     }
 
+    @Test
+    public fun Test_10() {
+        TreeMachine2(null).apply {
+            this.OnCloseCallback = {
+                this.SetRoot(null, null, null)
+            }
+        }.use { machine ->
+            // machine.SetRoot root
+            machine.SetRoot(Node2("root").apply {
+                this.OnCloseCallback = {
+                }
+                this.OnAttachCallback = { arg ->
+                    this.AddChildren(arrayOf(Node2("a"), Node2("b")), null)
+                }
+                this.OnDetachCallback = { arg ->
+                    this.RemoveChildren({ true }, null, null)
+                }
+            }, null, null)
+            assertNotEquals(machine.Root, null)
+            assertEquals(machine.Root!!.Owner, machine)
+            assertEquals(machine.Root!!.Machine, machine)
+            assertEquals(machine.Root!!.IsRoot, true)
+            assertEquals(machine.Root!!.Root, machine.Root)
+            assertEquals(machine.Root!!.Parent, null)
+            assertEquals(machine.Root!!.Ancestors.count(), 0)
+            assertEquals(machine.Root!!.AncestorsAndSelf.count(), 1)
+            assertEquals(machine.Root!!.Activity, Activity.Active)
+            assertEquals(machine.Root!!.Children.count(), 2)
+            assertEquals(machine.Root!!.Descendants.count(), 2)
+            assertEquals(machine.Root!!.DescendantsAndSelf.count(), 3)
+            for (child in machine.Root!!.Children) {
+                assertEquals(child.Owner, machine.Root)
+                assertEquals(child.Machine, machine)
+                assertEquals(child.IsRoot, false)
+                assertEquals(child.Root, machine.Root)
+                assertEquals(child.Parent, machine.Root)
+                assertEquals(child.Ancestors.count(), 1)
+                assertEquals(child.AncestorsAndSelf.count(), 2)
+                assertEquals(child.Activity, Activity.Active)
+                assertEquals(child.Children.count(), 0)
+                assertEquals(child.Descendants.count(), 0)
+                assertEquals(child.DescendantsAndSelf.count(), 1)
+            }
+        }
+    }
+
+    @Test
+    public fun Test_20() {
+        TreeMachine2(null).apply {
+            this.OnCloseCallback = {
+                this.SetRoot(null, null, null)
+            }
+        }.use { machine ->
+            // machine.SetRoot root
+            machine.SetRoot(Node2("root").apply {
+                this.OnCloseCallback = {
+                }
+                this.OnActivateCallback = { arg ->
+                    this.AddChildren(arrayOf(Node2("a"), Node2("b")), null)
+                }
+                this.OnDeactivateCallback = { arg ->
+                    this.RemoveChildren({ true }, null, null)
+                }
+            }, null, null)
+            assertNotEquals(machine.Root, null)
+            assertEquals(machine.Root!!.Owner, machine)
+            assertEquals(machine.Root!!.Machine, machine)
+            assertEquals(machine.Root!!.IsRoot, true)
+            assertEquals(machine.Root!!.Root, machine.Root)
+            assertEquals(machine.Root!!.Parent, null)
+            assertEquals(machine.Root!!.Ancestors.count(), 0)
+            assertEquals(machine.Root!!.AncestorsAndSelf.count(), 1)
+            assertEquals(machine.Root!!.Activity, Activity.Active)
+            assertEquals(machine.Root!!.Children.count(), 2)
+            assertEquals(machine.Root!!.Descendants.count(), 2)
+            assertEquals(machine.Root!!.DescendantsAndSelf.count(), 3)
+            for (child in machine.Root!!.Children) {
+                assertEquals(child.Owner, machine.Root)
+                assertEquals(child.Machine, machine)
+                assertEquals(child.IsRoot, false)
+                assertEquals(child.Root, machine.Root)
+                assertEquals(child.Parent, machine.Root)
+                assertEquals(child.Ancestors.count(), 1)
+                assertEquals(child.AncestorsAndSelf.count(), 2)
+                assertEquals(child.Activity, Activity.Active)
+                assertEquals(child.Children.count(), 0)
+                assertEquals(child.Descendants.count(), 0)
+                assertEquals(child.DescendantsAndSelf.count(), 1)
+            }
+        }
+    }
+
 }
