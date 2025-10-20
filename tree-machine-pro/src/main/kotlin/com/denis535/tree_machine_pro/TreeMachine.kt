@@ -54,6 +54,7 @@ public class TreeMachine<TMachineUserData, TNodeUserData> : AbstractTreeMachine<
     }
 
     public override fun close() {
+        assert(!this.IsClosing)
         assert(!this.IsClosed)
         this.Lifecycle = ELifecycle.Closing
         this.OnCloseCallback?.invoke()

@@ -212,6 +212,7 @@ public class Node<TMachineUserData, TNodeUserData> : AbstractNode<TMachineUserDa
     }
 
     public override fun close() {
+        assert(!this.IsClosing)
         assert(!this.IsClosed)
         when (val owner = this.Owner) {
             is AbstractTreeMachine<*, *> -> assert(owner.IsClosing)
