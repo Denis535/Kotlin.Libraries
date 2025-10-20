@@ -168,6 +168,7 @@ public class State<TMachineUserData, TStateUserData> : AbstractState<TMachineUse
     }
 
     public override fun close() {
+        assert(!this.IsClosing)
         assert(!this.IsClosed)
         when (val owner = this.Owner) {
             is AbstractStateMachine<*, *> -> assert(owner.IsClosing)
