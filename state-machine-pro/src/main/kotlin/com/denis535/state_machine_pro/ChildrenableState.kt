@@ -80,7 +80,6 @@ public class ChildrenableState<TMachineUserData, TStateUserData> : AbstractState
         }
         private set(value) {
             assert(!this.IsClosed)
-            assert(this.Owner != null)
             assert(field != value)
             field = value
         }
