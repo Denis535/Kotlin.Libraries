@@ -264,8 +264,6 @@ public class ChildrenableState<TMachineUserData, TStateUserData> : AbstractState
     }
 
     public fun AddChild(child: AbstractState<TMachineUserData, TStateUserData>, argument: Any?) {
-        require(!child.IsClosed)
-        require(child.Owner == null)
         assert(!this.IsClosed)
         assert(!this.Children.contains(child))
         this.ChildrenMutable.add(child)
@@ -281,8 +279,6 @@ public class ChildrenableState<TMachineUserData, TStateUserData> : AbstractState
     }
 
     public fun RemoveChild(child: AbstractState<TMachineUserData, TStateUserData>, argument: Any?, callback: Proc2<AbstractState<TMachineUserData, TStateUserData>, Any?>? = null) {
-        require(!child.IsClosed)
-        require(child.Owner == this)
         assert(!this.IsClosed)
         assert(this.Children.contains(child))
         child.Detach(this, argument)

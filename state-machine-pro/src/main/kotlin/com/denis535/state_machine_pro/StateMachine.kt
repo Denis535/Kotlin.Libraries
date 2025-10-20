@@ -76,8 +76,6 @@ public class StateMachine<TMachineUserData, TStateUserData> : AbstractStateMachi
     private fun AddRoot(
         root: AbstractState<TMachineUserData, TStateUserData>, argument: Any?
     ) {
-        require(!root.IsClosed)
-        require(root.Owner == null)
         assert(!this.IsClosed)
         assert(this.Root == null)
         this.Root = root
@@ -87,8 +85,6 @@ public class StateMachine<TMachineUserData, TStateUserData> : AbstractStateMachi
     private fun RemoveRoot(
         root: AbstractState<TMachineUserData, TStateUserData>, argument: Any?, callback: Proc2<AbstractState<TMachineUserData, TStateUserData>, Any?>? = null
     ) {
-        require(!root.IsClosed)
-        require(root.Owner == this)
         assert(!this.IsClosed)
         assert(this.Root == root)
         this.Root!!.Detach(this, argument)
