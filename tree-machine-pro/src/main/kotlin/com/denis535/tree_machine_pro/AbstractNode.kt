@@ -17,7 +17,7 @@ public abstract class AbstractNode<TMachineUserData, TNodeUserData> : AutoClosea
 
     public abstract val Activity: Activity
 
-    public abstract val Children: Sequence<AbstractNode<TMachineUserData, TNodeUserData>>
+    public abstract val Children: List<AbstractNode<TMachineUserData, TNodeUserData>>
     public abstract val Descendants: Sequence<AbstractNode<TMachineUserData, TNodeUserData>>
     public abstract val DescendantsAndSelf: Sequence<AbstractNode<TMachineUserData, TNodeUserData>>
 

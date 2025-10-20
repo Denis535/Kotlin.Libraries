@@ -76,8 +76,6 @@ public class TreeMachine<TMachineUserData, TNodeUserData> : AbstractTreeMachine<
     private fun AddRoot(
         root: AbstractNode<TMachineUserData, TNodeUserData>, argument: Any?
     ) {
-        require(!root.IsClosed)
-        require(root.Owner == null)
         assert(!this.IsClosed)
         assert(this.Root == null)
         this.Root = root
@@ -87,8 +85,6 @@ public class TreeMachine<TMachineUserData, TNodeUserData> : AbstractTreeMachine<
     private fun RemoveRoot(
         root: AbstractNode<TMachineUserData, TNodeUserData>, argument: Any?, callback: Proc2<AbstractNode<TMachineUserData, TNodeUserData>, Any?>? = null
     ) {
-        require(!root.IsClosed)
-        require(root.Owner == this)
         assert(!this.IsClosed)
         assert(this.Root == root)
         this.Root!!.Detach(this, argument)
