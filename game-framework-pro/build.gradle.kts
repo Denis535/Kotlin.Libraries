@@ -10,11 +10,12 @@ plugins {
     this.id("signing")
 }
 
-group = ProjectGroup
-version = ProjectVersion
-
-repositories {
-    this.mavenCentral()
+allprojects {
+    this.group = ProjectGroup
+    this.version = ProjectVersion
+    this.repositories {
+        this.mavenCentral()
+    }
 }
 
 dependencies {
@@ -76,11 +77,10 @@ publishing {
 //        }
 //    }
 }
-
-signing {
-    this.useInMemoryPgpKeys(
-        File("${projectDir}/0x32672C2E-sec.asc").readText(),
-        "qwerty"
-    )
-    this.sign(publishing.publications["mavenJava"])
-}
+//signing {
+//    this.useInMemoryPgpKeys(
+//        File("${projectDir}/0x32672C2E-sec.asc").readText(),
+//        "qwerty"
+//    )
+//    this.sign(publishing.publications["mavenJava"])
+//}
