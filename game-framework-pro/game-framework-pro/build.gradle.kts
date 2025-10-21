@@ -1,19 +1,22 @@
 plugins {
-    kotlin("jvm")
+    kotlin("jvm") version "2.2.20"
     id("maven-publish")
+    id("signing")
 }
 
 dependencies {
-    testImplementation(kotlin("test"))
+    this.testImplementation(kotlin("test"))
 }
 
-java { withSourcesJar() }
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
 
-publishing {
-    publications {
-        create<MavenPublication>("mavenJava") {
-            from(components["java"])
-            artifactId = "game-framework-pro"
-        }
-    }
+kotlin {
+    jvmToolchain(24)
+}
+
+tasks.test {
+    useJUnitPlatform()
 }
