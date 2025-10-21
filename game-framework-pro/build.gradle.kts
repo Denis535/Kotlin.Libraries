@@ -1,36 +1,12 @@
-val ProjectGroup = "io.github.denis535"
-val ProjectName = project.name
-val ProjectVersion = "1.0.0"
-val ProjectDescription = "The framework that allows you to design high-quality architecture of your game project."
-val ProjectUrl = "https://github.com/Denis535/Kotlin.Libraries/tree/main/game-framework-pro"
-
 plugins {
-    this.kotlin("jvm") version "2.2.20"
-    this.id("maven-publish")
-    this.id("signing")
+    this.id("java-platform")
 }
 
 allprojects {
-    this.group = ProjectGroup
-    this.version = ProjectVersion
+    this.group = this.findProperty("project.group") as String
+    this.version = this.findProperty("project.version") as String
     this.repositories {
         this.mavenCentral()
-    }
-}
-
-subprojects {
-    this.apply(plugin = "org.jetbrains.kotlin.jvm")
-    this.apply(plugin = "maven-publish")
-    this.apply(plugin = "signing")
-    this.java {
-        this.withSourcesJar()
-        this.withJavadocJar()
-    }
-    this.kotlin {
-        this.jvmToolchain(24)
-    }
-    this.tasks.test {
-        this.useJUnitPlatform()
     }
 }
 
