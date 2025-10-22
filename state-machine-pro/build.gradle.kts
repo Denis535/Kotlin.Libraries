@@ -1,24 +1,18 @@
-val ProjectGroup = "io.github.denis535"
-val ProjectName = project.name
-val ProjectVersion = "1.0.0"
-val ProjectDescription = "The library that allows you to easily implement a stateful object."
-val ProjectUrl = "https://github.com/Denis535/Kotlin.Libraries/tree/main/state-machine-pro"
-
 plugins {
     this.kotlin("jvm") version "2.2.20"
     this.id("maven-publish")
     this.id("signing")
 }
 
-group = ProjectGroup
-version = ProjectVersion
-
-repositories {
-    this.mavenCentral()
-}
+group = findProperty("project.group") as String
+version = findProperty("project.version") as String
 
 dependencies {
     this.testImplementation(this.kotlin("test"))
+}
+
+repositories {
+    this.mavenCentral()
 }
 
 java {
@@ -38,49 +32,38 @@ publishing {
     this.publications {
         this.create<MavenPublication>("mavenJava") {
             this.from(components["java"])
-            this.groupId = ProjectGroup
-            this.artifactId = ProjectName
-            this.version = ProjectVersion
+            this.groupId = findProperty("project.group") as String
+            this.artifactId = findProperty("project.name") as String
+            this.version = findProperty("project.version") as String
             this.pom {
-                this.name.set(ProjectName)
-                this.description.set(ProjectDescription)
-                this.url.set(ProjectUrl)
+                this.name = findProperty("project.name") as String
+                this.description = findProperty("project.description") as String
+                this.url = findProperty("project.url") as String
                 this.licenses {
                     this.license {
-                        this.name.set("MIT License")
-                        this.url.set("https://opensource.org/licenses/MIT")
+                        this.name = "MIT License"
+                        this.url = "https://opensource.org/licenses/MIT"
                     }
                 }
                 this.developers {
                     this.developer {
-                        this.id.set("denis535")
-                        this.name.set("Denis535")
+                        this.id = "denis535"
+                        this.name = "Denis535"
                     }
                 }
                 this.scm {
-                    this.connection.set("scm:git:git://https://github.com/Denis535/Kotlin.Libraries.git")
-                    this.developerConnection.set("scm:git:ssh://https://github.com/Denis535/Kotlin.Libraries.git")
-                    this.url.set("https://github.com/Denis535/Kotlin.Libraries/tree/main/state-machine-pro")
+                    this.connection = "scm:git:git://https://github.com/Denis535/Kotlin.Libraries.git"
+                    this.developerConnection = "scm:git:ssh://https://github.com/Denis535/Kotlin.Libraries.git"
+                    this.url = findProperty("project.url") as String
                 }
             }
         }
     }
-//    this.repositories {
-//        this.maven {
-//            this.name = "sonatype"
-//            this.url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
-//            this.credentials {
-//                this.username = project.findProperty("ossrhUsername") as String?
-//                this.password = project.findProperty("ossrhPassword") as String?
-//            }
-//        }
-//    }
 }
 
 signing {
     this.useInMemoryPgpKeys(
-        File("${projectDir}/0x32672C2E-sec.asc").readText(),
-        "qwerty"
+        File("${projectDir}/0x32672C2E-sec.asc").readText(), "qwerty"
     )
     this.sign(publishing.publications["mavenJava"])
 }
