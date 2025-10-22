@@ -9,6 +9,8 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/game-framework-pro" />
+            <option value="$PROJECT_DIR$/game-framework-pro-extensions" />
           </set>
         </option>
       </GradleProjectSettings>
