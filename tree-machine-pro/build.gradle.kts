@@ -54,16 +54,26 @@ publishing {
                 this.scm {
                     this.connection = "scm:git:git://https://github.com/Denis535/Kotlin.Libraries.git"
                     this.developerConnection = "scm:git:ssh://https://github.com/Denis535/Kotlin.Libraries.git"
-                    this.url = findProperty("project.url") as String
+                    this.url = "https://github.com/Denis535/Kotlin.Libraries"
+                }
+            }
+        }
+        this@publishing.repositories {
+            this.maven {
+                this.name = "GitHubPackages"
+                this.url = uri("https://maven.pkg.github.com/Denis535/Kotlin.Libraries")
+                this.credentials {
+                    this.username = project.findProperty("gpr.user") as String? ?: System.getenv("GITHUB_ACTOR")
+                    this.password = project.findProperty("gpr.key") as String? ?: System.getenv("GITHUB_TOKEN")
                 }
             }
         }
     }
 }
 
-signing {
-    this.useInMemoryPgpKeys(
-        File("${projectDir}/0x32672C2E-sec.asc").readText(), "qwerty"
-    )
-    this.sign(publishing.publications["mavenJava"])
-}
+//signing {
+//    this.useInMemoryPgpKeys(
+//        File("${projectDir}/0x32672C2E-sec.asc").readText(), "qwerty"
+//    )
+//    this.sign(publishing.publications["mavenJava"])
+//}
