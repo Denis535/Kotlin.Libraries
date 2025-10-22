@@ -63,8 +63,8 @@ publishing {
                 this.name = "GitHubPackages"
                 this.url = uri("https://maven.pkg.github.com/Denis535/Kotlin.Libraries")
                 this.credentials {
-                    this.username = project.findProperty("gpr.user") as String? ?: System.getenv("GITHUB_ACTOR")
-                    this.password = project.findProperty("gpr.key") as String? ?: System.getenv("GITHUB_TOKEN")
+                    this.username = project.findProperty("gpr.user") as String? ?: System.getenv("GITHUB_ACTOR") ?: error("GITHUB_ACTOR is not found")
+                    this.password = project.findProperty("gpr.key") as String? ?: System.getenv("GITHUB_TOKEN") ?: error("GITHUB_TOKEN is not found")
                 }
             }
         }
