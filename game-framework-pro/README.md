@@ -6,41 +6,36 @@ The framework that allows you to design high-quality architecture of your game p
 
 ###### com.denis535.game_framework_pro
 
-- IDependencyProvider
-- DisposableBase
-
-###### com.denis535.game_framework_pro
-
-- ProgramBase
+- AbstractProgram
 - UI
-    - ThemeBase
-    - PlayListBase
-    - ScreenBase
-    - WidgetBase
-    - ViewableWidgetBase
-    - RouterBase
+    - AbstractTheme
+    - AbstractPlayList
+    - AbstractScreen
+    - AbstractWidget
+    - AbstractViewableWidget
+    - AbstractRouter
 - App
-    - ApplicationBase
+    - AbstractApplication
 - Domain (Business, Game)
-    - GameBase
-    - PlayerBase
-    - EntityBase (Character, Thing, Vehicle, Environment)
+    - AbstractGame
+    - AbstractPlayer
+    - AbstractEntity (Character, Thing, Vehicle, Environment)
 
 ###### com.denis535.game_framework_pro
 
-- ProgramBase2
+- AbstractProgram2
 - UI
-    - ThemeBase2
-    - PlayListBase2
-    - ScreenBase2
-    - WidgetBase2
-    - ViewableWidgetBase2
-    - RouterBase2
+    - AbstractTheme2
+    - AbstractPlayList2
+    - AbstractScreen2
+    - AbstractWidget2
+    - AbstractViewableWidget2
+    - AbstractRouter2
 - App
-    - ApplicationBase2
+    - AbstractApplication2
 - Domain
-    - GameBase2
-    - PlayerBase2
+    - AbstractGame2
+    - AbstractPlayer2
 
 # Links
 
