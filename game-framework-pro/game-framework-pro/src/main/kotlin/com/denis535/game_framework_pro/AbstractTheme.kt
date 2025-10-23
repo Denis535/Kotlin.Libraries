@@ -61,3 +61,12 @@ public abstract class AbstractPlayList {
     protected abstract fun OnDeactivate(argument: Any?)
 
 }
+
+public val AbstractState<AbstractTheme, AbstractPlayList>.PlayList: AbstractPlayList
+    get() {
+        return this.UserData
+    }
+
+public fun <T> AbstractState<AbstractTheme, AbstractPlayList>.PlayList(): T where  T : AbstractPlayList {
+    return this.UserData as T
+}

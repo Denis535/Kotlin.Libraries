@@ -1,5 +1,6 @@
 package com.denis535.game_framework_pro
 
+import com.denis535.state_machine_pro.AbstractState
 import com.denis535.tree_machine_pro.*
 
 public abstract class AbstractScreen : AbstractCloseable {
@@ -170,4 +171,13 @@ public abstract class AbstractViewableWidget : AbstractWidget {
         this.View = view
     }
 
+}
+
+public val AbstractNode<AbstractScreen, AbstractWidget>.Widget: AbstractWidget
+    get() {
+        return this.UserData
+    }
+
+public fun <T> AbstractNode<AbstractScreen, AbstractWidget>.Widget(): T where  T : AbstractWidget {
+    return this.UserData as T
 }
