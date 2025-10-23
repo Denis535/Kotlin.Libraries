@@ -61,7 +61,6 @@ public abstract class AbstractWidget {
             }
             field = value
         }
-
     public var OnAfterDescendantActivateCallback: Proc2<AbstractNode<AbstractScreen, AbstractWidget>, Any?>? = null
         get() {
             assert(!this.IsClosed)
@@ -91,7 +90,6 @@ public abstract class AbstractWidget {
             }
             field = value
         }
-
     public var OnAfterDescendantDeactivateCallback: Proc2<AbstractNode<AbstractScreen, AbstractWidget>, Any?>? = null
         get() {
             assert(!this.IsClosed)
