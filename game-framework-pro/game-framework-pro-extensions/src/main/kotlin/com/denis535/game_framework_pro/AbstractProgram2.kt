@@ -38,11 +38,11 @@ public abstract class AbstractProgram2<TTheme, TScreen, TRouter, TApplication> :
 
     public override fun GetDependency(clazz: KClass<*>, argument: Any?): Any? {
         assert(!this.IsClosed)
-        return when(clazz) {
-            this.Theme::class -> this.Theme
-            this.Screen::class -> this.Screen
-            this.Router::class -> this.Router
-            this.Application::class -> this.Application
+        return when {
+            clazz.java.isAssignableFrom(this.Theme::class.java) -> this.Theme
+            clazz.java.isAssignableFrom(this.Screen::class.java) -> this.Screen
+            clazz.java.isAssignableFrom(this.Router::class.java) -> this.Router
+            clazz.java.isAssignableFrom(this.Application::class.java) -> this.Application
             else -> null
         }
     }

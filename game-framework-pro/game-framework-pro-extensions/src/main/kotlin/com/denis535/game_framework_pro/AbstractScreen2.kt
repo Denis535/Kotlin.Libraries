@@ -1,6 +1,6 @@
 package com.denis535.game_framework_pro
 
-public abstract class AbstractScreen2<TRouter, TApplication> : AbstractScreen {
+public abstract class AbstractScreen2<TRouter, TApplication> : AbstractScreen where TRouter : AbstractRouter, TApplication : AbstractApplication {
 
     protected val Provider: DependencyProvider
         get() {
@@ -20,8 +20,8 @@ public abstract class AbstractScreen2<TRouter, TApplication> : AbstractScreen {
 
     public constructor (provider: DependencyProvider) {
         this.Provider = provider
-        this.Router = provider.RequireDependency<TRouter>(TRouter::class)
-        this.Application = provider.RequireDependency<TApplication>(TApplication::class)
+        this.Router = provider.RequireDependency<TRouter>(AbstractRouter::class)
+        this.Application = provider.RequireDependency<TApplication>(AbstractApplication::class)
     }
 
     public override fun OnClose() {
