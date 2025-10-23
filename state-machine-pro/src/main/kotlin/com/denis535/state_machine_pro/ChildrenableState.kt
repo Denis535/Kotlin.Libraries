@@ -15,22 +15,22 @@ public class ChildrenableState<TMachineUserData, TStateUserData> : AbstractState
 
     public override var Owner: Any? = null
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return field
         }
         private set(value) {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             if (value != null) {
-                assert(field == null)
+                check(field == null)
             } else {
-                assert(field != null)
+                check(field != null)
             }
             field = value
         }
 
     public override val Machine: AbstractStateMachine<TMachineUserData, TStateUserData>?
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return when (val owner = this.Owner) {
                 is AbstractStateMachine<*, *> -> owner as AbstractStateMachine<TMachineUserData, TStateUserData>
                 is AbstractState<*, *> -> owner.Machine as AbstractStateMachine<TMachineUserData, TStateUserData>
@@ -40,23 +40,23 @@ public class ChildrenableState<TMachineUserData, TStateUserData> : AbstractState
 
     public override val IsRoot: Boolean
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return this.Parent == null
         }
     public override val Root: AbstractState<TMachineUserData, TStateUserData>
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return this.Parent?.Root ?: this
         }
 
     public override val Parent: AbstractState<TMachineUserData, TStateUserData>?
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return this.Owner as? AbstractState<TMachineUserData, TStateUserData>
         }
     public override val Ancestors: Sequence<AbstractState<TMachineUserData, TStateUserData>>
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return sequence {
                 if (this@ChildrenableState.Parent != null) {
                     this.yield(this@ChildrenableState.Parent!!)
@@ -66,7 +66,7 @@ public class ChildrenableState<TMachineUserData, TStateUserData> : AbstractState
         }
     public override val AncestorsAndSelf: Sequence<AbstractState<TMachineUserData, TStateUserData>>
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return sequence {
                 this.yield(this@ChildrenableState)
                 this.yieldAll(this@ChildrenableState.Ancestors)
@@ -75,116 +75,116 @@ public class ChildrenableState<TMachineUserData, TStateUserData> : AbstractState
 
     public override var Activity: EActivity = EActivity.Inactive
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return field
         }
         private set(value) {
-            assert(!this.IsClosed)
-            assert(field != value)
+            check(!this.IsClosed)
+            check(field != value)
             field = value
         }
 
     public val Children: List<AbstractState<TMachineUserData, TStateUserData>>
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return this.ChildrenMutable
         }
     private val ChildrenMutable: MutableList<AbstractState<TMachineUserData, TStateUserData>> = mutableListOf<AbstractState<TMachineUserData, TStateUserData>>()
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return field
         }
 
     public var SortDelegate: Proc1<MutableList<AbstractState<TMachineUserData, TStateUserData>>>? = null
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return field
         }
         set(value) {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             if (value != null) {
-                assert(field == null)
+                check(field == null)
             } else {
-                assert(field != null)
+                check(field != null)
             }
             field = value
         }
 
     public override val UserData: TStateUserData
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return field
         }
 
     public var OnCloseCallback: Proc? = null
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return field
         }
         set(value) {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             if (value != null) {
-                assert(field == null)
+                check(field == null)
             } else {
-                assert(field != null)
+                check(field != null)
             }
             field = value
         }
 
     public var OnAttachCallback: Proc1<Any?>? = null
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return field
         }
         set(value) {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             if (value != null) {
-                assert(field == null)
+                check(field == null)
             } else {
-                assert(field != null)
+                check(field != null)
             }
             field = value
         }
     public var OnDetachCallback: Proc1<Any?>? = null
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return field
         }
         set(value) {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             if (value != null) {
-                assert(field == null)
+                check(field == null)
             } else {
-                assert(field != null)
+                check(field != null)
             }
             field = value
         }
 
     public var OnActivateCallback: Proc1<Any?>? = null
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return field
         }
         set(value) {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             if (value != null) {
-                assert(field == null)
+                check(field == null)
             } else {
-                assert(field != null)
+                check(field != null)
             }
             field = value
         }
     public var OnDeactivateCallback: Proc1<Any?>? = null
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return field
         }
         set(value) {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             if (value != null) {
-                assert(field == null)
+                check(field == null)
             } else {
-                assert(field != null)
+                check(field != null)
             }
             field = value
         }
@@ -194,21 +194,21 @@ public class ChildrenableState<TMachineUserData, TStateUserData> : AbstractState
     }
 
     public override fun close() {
-        assert(!this.IsClosing)
-        assert(!this.IsClosed)
+        check(!this.IsClosing)
+        check(!this.IsClosed)
         when (val owner = this.Owner) {
-            is AbstractStateMachine<*, *> -> assert(owner.IsClosing)
-            is AbstractState<*, *> -> assert(owner.IsClosing)
+            is AbstractStateMachine<*, *> -> check(owner.IsClosing)
+            is AbstractState<*, *> -> check(owner.IsClosing)
         }
         this.Lifecycle = ELifecycle.Closing
         this.OnCloseCallback?.invoke()
-        assert(this.Children.all { it.IsClosed })
+        check(this.Children.all { it.IsClosed })
         this.Lifecycle = ELifecycle.Closed
     }
 
     internal override fun Attach(machine: AbstractStateMachine<TMachineUserData, TStateUserData>, argument: Any?) {
-        assert(!this.IsClosed)
-        assert(this.Owner == null)
+        check(!this.IsClosed)
+        check(this.Owner == null)
         this.Owner = machine
         this.OnAttachCallback?.invoke(argument)
         if (true) {
@@ -217,8 +217,8 @@ public class ChildrenableState<TMachineUserData, TStateUserData> : AbstractState
     }
 
     internal override fun Attach(parent: AbstractState<TMachineUserData, TStateUserData>, argument: Any?) {
-        assert(!this.IsClosed)
-        assert(this.Owner == null)
+        check(!this.IsClosed)
+        check(this.Owner == null)
         this.Owner = parent
         this.OnAttachCallback?.invoke(argument)
         if (this.Parent!!.Activity == EActivity.Active) {
@@ -227,8 +227,8 @@ public class ChildrenableState<TMachineUserData, TStateUserData> : AbstractState
     }
 
     internal override fun Detach(machine: AbstractStateMachine<TMachineUserData, TStateUserData>, argument: Any?) {
-        assert(!this.IsClosed)
-        assert(this.Owner == machine)
+        check(!this.IsClosed)
+        check(this.Owner == machine)
         if (true) {
             this.Deactivate(argument)
         }
@@ -237,8 +237,8 @@ public class ChildrenableState<TMachineUserData, TStateUserData> : AbstractState
     }
 
     internal override fun Detach(parent: AbstractState<TMachineUserData, TStateUserData>, argument: Any?) {
-        assert(!this.IsClosed)
-        assert(this.Owner == parent)
+        check(!this.IsClosed)
+        check(this.Owner == parent)
         if (this.Activity == EActivity.Active) {
             this.Deactivate(argument)
         }
@@ -265,23 +265,23 @@ public class ChildrenableState<TMachineUserData, TStateUserData> : AbstractState
     }
 
     public fun AddChild(child: AbstractState<TMachineUserData, TStateUserData>, argument: Any?) {
-        assert(!this.IsClosed)
-        assert(!this.Children.contains(child))
+        check(!this.IsClosed)
+        check(!this.Children.contains(child))
         this.ChildrenMutable.add(child)
         this.SortDelegate?.invoke(this.ChildrenMutable)
         child.Attach(this, argument)
     }
 
     public fun AddChildren(children: Array<AbstractState<TMachineUserData, TStateUserData>>, argument: Any?) {
-        assert(!this.IsClosed)
+        check(!this.IsClosed)
         for (child in children) {
             this.AddChild(child, argument)
         }
     }
 
     public fun RemoveChild(child: AbstractState<TMachineUserData, TStateUserData>, argument: Any?, callback: Proc2<AbstractState<TMachineUserData, TStateUserData>, Any?>? = null) {
-        assert(!this.IsClosed)
-        assert(this.Children.contains(child))
+        check(!this.IsClosed)
+        check(this.Children.contains(child))
         child.Detach(this, argument)
         this.ChildrenMutable.remove(child)
         if (callback != null) {
@@ -292,7 +292,7 @@ public class ChildrenableState<TMachineUserData, TStateUserData> : AbstractState
     }
 
     public fun RemoveChildren(predicate: Predicate1<AbstractState<TMachineUserData, TStateUserData>>, argument: Any?, callback: Proc2<AbstractState<TMachineUserData, TStateUserData>, Any?>? = null): Int {
-        assert(!this.IsClosed)
+        check(!this.IsClosed)
         var count = 0
         for (child in this.Children.reversed().filter(predicate)) {
             this.RemoveChild(child, argument, callback)

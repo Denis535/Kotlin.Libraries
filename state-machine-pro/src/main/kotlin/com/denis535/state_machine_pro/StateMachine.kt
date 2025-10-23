@@ -15,36 +15,36 @@ public class StateMachine<TMachineUserData, TStateUserData> : AbstractStateMachi
 
     public override var Root: AbstractState<TMachineUserData, TStateUserData>? = null
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return field
         }
         private set(value) {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             if (value != null) {
-                assert(field == null)
+                check(field == null)
             } else {
-                assert(field != null)
+                check(field != null)
             }
             field = value
         }
 
     public override val UserData: TMachineUserData
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return field
         }
 
     public var OnCloseCallback: Proc? = null
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return field
         }
         set(value) {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             if (value != null) {
-                assert(field == null)
+                check(field == null)
             } else {
-                assert(field != null)
+                check(field != null)
             }
             field = value
         }
@@ -54,18 +54,18 @@ public class StateMachine<TMachineUserData, TStateUserData> : AbstractStateMachi
     }
 
     public override fun close() {
-        assert(!this.IsClosing)
-        assert(!this.IsClosed)
+        check(!this.IsClosing)
+        check(!this.IsClosed)
         this.Lifecycle = ELifecycle.Closing
         this.OnCloseCallback?.invoke()
-        assert(this.Root == null || this.Root!!.IsClosed)
+        check(this.Root == null || this.Root!!.IsClosed)
         this.Lifecycle = ELifecycle.Closed
     }
 
     public fun SetRoot(
         root: AbstractState<TMachineUserData, TStateUserData>?, argument: Any?, callback: Proc2<AbstractState<TMachineUserData, TStateUserData>, Any?>? = null
     ) {
-        assert(!this.IsClosed)
+        check(!this.IsClosed)
         if (this.Root != null) {
             this.RemoveRoot(this.Root!!, argument, callback)
         }
@@ -77,8 +77,8 @@ public class StateMachine<TMachineUserData, TStateUserData> : AbstractStateMachi
     private fun AddRoot(
         root: AbstractState<TMachineUserData, TStateUserData>, argument: Any?
     ) {
-        assert(!this.IsClosed)
-        assert(this.Root == null)
+        check(!this.IsClosed)
+        check(this.Root == null)
         this.Root = root
         this.Root!!.Attach(this, argument)
     }
@@ -86,8 +86,8 @@ public class StateMachine<TMachineUserData, TStateUserData> : AbstractStateMachi
     private fun RemoveRoot(
         root: AbstractState<TMachineUserData, TStateUserData>, argument: Any?, callback: Proc2<AbstractState<TMachineUserData, TStateUserData>, Any?>? = null
     ) {
-        assert(!this.IsClosed)
-        assert(this.Root == root)
+        check(!this.IsClosed)
+        check(this.Root == root)
         this.Root!!.Detach(this, argument)
         this.Root = null
         if (callback != null) {
