@@ -1,8 +1,9 @@
 package com.denis535.game_framework_pro
 
-internal typealias ELifecycle = Lifecycle
-
 public abstract class AbstractCloseable : AutoCloseable {
+    private enum class ELifecycle {
+        Alive, Closing, Closed,
+    }
 
     private var Lifecycle = ELifecycle.Alive
 
@@ -27,8 +28,4 @@ public abstract class AbstractCloseable : AutoCloseable {
 
     public abstract fun OnClose()
 
-}
-
-internal enum class Lifecycle {
-    Alive, Closing, Closed,
 }
