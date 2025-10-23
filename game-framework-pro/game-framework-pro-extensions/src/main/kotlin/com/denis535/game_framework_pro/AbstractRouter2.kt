@@ -4,22 +4,22 @@ public abstract class AbstractRouter2<TTheme, TScreen, TApplication> : AbstractR
 
     protected val Provider: DependencyProvider
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return field
         }
     protected val Theme: TTheme
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return this.Provider.RequireDependency(AbstractTheme::class)
         }
     protected val Screen: TScreen
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return this.Provider.RequireDependency(AbstractScreen::class)
         }
     protected val Application: TApplication
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return field
         }
 

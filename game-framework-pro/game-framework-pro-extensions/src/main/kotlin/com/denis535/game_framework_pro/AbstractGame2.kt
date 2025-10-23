@@ -4,7 +4,7 @@ public abstract class AbstractGame2 : AbstractGame {
 
     protected val Provider: DependencyProvider
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return field
         }
 

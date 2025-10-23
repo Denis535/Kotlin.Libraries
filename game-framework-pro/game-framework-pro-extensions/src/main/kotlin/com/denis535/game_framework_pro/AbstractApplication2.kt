@@ -4,7 +4,7 @@ public abstract class AbstractApplication2 : AbstractApplication {
 
     protected val Provider: DependencyProvider
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return field
         }
 

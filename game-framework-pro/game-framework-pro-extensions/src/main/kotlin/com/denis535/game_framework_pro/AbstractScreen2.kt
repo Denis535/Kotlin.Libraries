@@ -4,17 +4,17 @@ public abstract class AbstractScreen2<TRouter, TApplication> : AbstractScreen wh
 
     protected val Provider: DependencyProvider
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return field
         }
     protected val Router: TRouter
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return field
         }
     protected val Application: TApplication
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return field
         }
 
@@ -34,7 +34,7 @@ public abstract class AbstractWidget2 : AbstractWidget {
 
     protected val Provider: DependencyProvider
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return field
         }
 
@@ -48,7 +48,7 @@ public abstract class AbstractViewableWidget2 : AbstractViewableWidget {
 
     protected val Provider: DependencyProvider
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return field
         }
 

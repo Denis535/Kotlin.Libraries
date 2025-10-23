@@ -4,17 +4,17 @@ public abstract class AbstractTheme2<TRouter, TApplication> : AbstractTheme wher
 
     protected val Provider: DependencyProvider
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return field
         }
     protected val Router: TRouter
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return field
         }
     protected val Application: TApplication
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return field
         }
 
@@ -34,7 +34,7 @@ public abstract class AbstractPlayList2 : AbstractPlayList {
 
     protected val Provider: DependencyProvider
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return field
         }
 

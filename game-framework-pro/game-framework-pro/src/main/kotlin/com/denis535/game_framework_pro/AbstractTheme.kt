@@ -6,7 +6,7 @@ public abstract class AbstractTheme : AbstractCloseable {
 
     protected val Machine: StateMachine<AbstractTheme, AbstractPlayList>
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return field
         }
 
@@ -33,17 +33,17 @@ public abstract class AbstractPlayList {
 
     protected val Theme: AbstractTheme?
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return this.StateMutable.Machine?.UserData
         }
     public val State: AbstractState<AbstractTheme, AbstractPlayList>
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return this.StateMutable
         }
     protected val StateMutable: State<AbstractTheme, AbstractPlayList>
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return field
         }
 

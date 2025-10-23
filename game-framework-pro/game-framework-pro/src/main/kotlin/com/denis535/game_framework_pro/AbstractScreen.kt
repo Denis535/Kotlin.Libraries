@@ -6,7 +6,7 @@ public abstract class AbstractScreen : AbstractCloseable {
 
     protected val Machine: TreeMachine<AbstractScreen, AbstractWidget>
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return field
         }
 
@@ -33,74 +33,74 @@ public abstract class AbstractWidget {
 
     protected val Screen: AbstractScreen?
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return this.NodeMutable.Machine?.UserData
         }
     public val Node: AbstractNode<AbstractScreen, AbstractWidget>
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return this.NodeMutable
         }
     protected val NodeMutable: Node<AbstractScreen, AbstractWidget>
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return field
         }
 
     public var OnBeforeDescendantActivateCallback: Proc2<AbstractNode<AbstractScreen, AbstractWidget>, Any?>? = null
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return field
         }
         set(value) {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             if (value != null) {
-                assert(field == null)
+                check(field == null)
             } else {
-                assert(field != null)
+                check(field != null)
             }
             field = value
         }
     public var OnAfterDescendantActivateCallback: Proc2<AbstractNode<AbstractScreen, AbstractWidget>, Any?>? = null
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return field
         }
         set(value) {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             if (value != null) {
-                assert(field == null)
+                check(field == null)
             } else {
-                assert(field != null)
+                check(field != null)
             }
             field = value
         }
 
     public var OnBeforeDescendantDeactivateCallback: Proc2<AbstractNode<AbstractScreen, AbstractWidget>, Any?>? = null
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return field
         }
         set(value) {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             if (value != null) {
-                assert(field == null)
+                check(field == null)
             } else {
-                assert(field != null)
+                check(field != null)
             }
             field = value
         }
     public var OnAfterDescendantDeactivateCallback: Proc2<AbstractNode<AbstractScreen, AbstractWidget>, Any?>? = null
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return field
         }
         set(value) {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             if (value != null) {
-                assert(field == null)
+                check(field == null)
             } else {
-                assert(field != null)
+                check(field != null)
             }
             field = value
         }
@@ -160,7 +160,7 @@ public abstract class AbstractViewableWidget : AbstractWidget {
 
     public val View: Any
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return field
         }
 

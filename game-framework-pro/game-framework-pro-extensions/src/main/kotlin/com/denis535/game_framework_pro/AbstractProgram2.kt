@@ -6,22 +6,22 @@ public abstract class AbstractProgram2<TTheme, TScreen, TRouter, TApplication> :
 
     protected var Theme: TTheme
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return field
         }
     protected var Screen: TScreen
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return field
         }
     protected var Router: TRouter
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return field
         }
     protected var Application: TApplication
         get() {
-            assert(!this.IsClosed)
+            check(!this.IsClosed)
             return field
         }
 
@@ -37,7 +37,7 @@ public abstract class AbstractProgram2<TTheme, TScreen, TRouter, TApplication> :
     }
 
     public override fun GetDependency(clazz: KClass<*>, argument: Any?): Any? {
-        assert(!this.IsClosed)
+        check(!this.IsClosed)
         return when {
             clazz.java.isAssignableFrom(this.Theme::class.java) -> this.Theme
             clazz.java.isAssignableFrom(this.Screen::class.java) -> this.Screen

@@ -19,8 +19,8 @@ public abstract class AbstractCloseable : AutoCloseable {
     public constructor()
 
     public final override fun close() {
-        assert(!this.IsClosing)
-        assert(!this.IsClosed)
+        check(!this.IsClosing)
+        check(!this.IsClosed)
         this.Lifecycle = ELifecycle.Closing
         this.OnClose()
         this.Lifecycle = ELifecycle.Closed
