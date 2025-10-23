@@ -1,6 +1,5 @@
 package com.denis535.game_framework_pro
 
-import com.denis535.state_machine_pro.AbstractState
 import com.denis535.tree_machine_pro.*
 
 public abstract class AbstractScreen : AbstractCloseable {
