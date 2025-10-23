@@ -112,7 +112,7 @@ public abstract class AbstractWidget {
             this.SortDelegate = this@AbstractWidget::Sort
             this.OnCloseCallback = this@AbstractWidget::OnClose
             this.OnActivateCallback = { argument ->
-                for (ancestor in this@AbstractWidget.Node.Ancestors.toList().reversed()) { // root-down
+                for (ancestor in this@AbstractWidget.Node.Ancestors.toList().asReversed()) { // root-down
                     ancestor.UserData.OnBeforeDescendantActivateCallback?.invoke(this@AbstractWidget.Node, argument)
                     ancestor.UserData.OnBeforeDescendantActivate(this@AbstractWidget.Node, argument)
                 }
@@ -123,7 +123,7 @@ public abstract class AbstractWidget {
                 }
             }
             this.OnDeactivateCallback = { argument ->
-                for (ancestor in this@AbstractWidget.Node.Ancestors.toList().reversed()) { // root-down
+                for (ancestor in this@AbstractWidget.Node.Ancestors.toList().asReversed()) { // root-down
                     ancestor.UserData.OnBeforeDescendantDeactivateCallback?.invoke(this@AbstractWidget.Node, argument)
                     ancestor.UserData.OnBeforeDescendantDeactivate(this@AbstractWidget.Node, argument)
                 }
