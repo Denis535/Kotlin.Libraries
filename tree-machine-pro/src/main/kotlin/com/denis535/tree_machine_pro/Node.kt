@@ -275,7 +275,7 @@ public class Node<TMachineUserData, TNodeUserData> : AbstractNode<TMachineUserDa
 
     internal override fun Deactivate(argument: Any?) {
         this.Activity = EActivity.Deactivating
-        for (child in this.Children.reversed()) {
+        for (child in this.Children.toList().asReversed()) {
             child.Deactivate(argument)
         }
         this.OnDeactivateCallback?.invoke(argument)
