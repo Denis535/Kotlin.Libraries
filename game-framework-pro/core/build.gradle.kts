@@ -53,7 +53,7 @@ publishing {
             }
         }
     }
-    this@publishing.repositories {
+    this.repositories {
         this.maven {
             this.name = "GitHubPackages"
             this.url = uri("https://maven.pkg.github.com/Denis535/Kotlin.Libraries")
