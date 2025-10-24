@@ -162,6 +162,21 @@ internal class Router : AbstractRouter2<Theme, Screen, Application> {
 // App
 internal class Application : AbstractApplication2 {
 
+    public val Game: Game
+
+    public constructor(provider: DependencyProvider) : super(provider) {
+        this.Game = Game(this.Provider)
+    }
+
+    protected override fun OnClose() {
+        this.Game.close()
+        super.OnClose()
+    }
+
+}
+// Domain
+internal class Game : AbstractGame2 {
+
     public constructor(provider: DependencyProvider) : super(provider)
 
     protected override fun OnClose() {
