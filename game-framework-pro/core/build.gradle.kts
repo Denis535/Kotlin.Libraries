@@ -30,9 +30,9 @@ publishing {
             this.artifactId = rootProject.name + "-" + project.name
             this.version = project.version.toString()
             this.pom {
-                this.name = rootProject.name + "-" + project.name
+                this.name = this@create.artifactId
                 this.description = project.description
-                this.url = project.findProperty("project.url").toString()
+                this.url = project.findProperty("url").toString()
                 this.licenses {
                     this.license {
                         this.name = "MIT License"
@@ -50,6 +50,16 @@ publishing {
                     this.developerConnection = "scm:git:ssh://git@github.com/Denis535/Kotlin.Libraries.git"
                     this.url = "https://github.com/Denis535/Kotlin.Libraries"
                 }
+            }
+        }
+    }
+    this@publishing.repositories {
+        this.maven {
+            this.name = "GitHubPackages"
+            this.url = uri("https://maven.pkg.github.com/Denis535/Kotlin.Libraries")
+            this.credentials {
+                this.username = project.findProperty("gpr.user") as String? ?: System.getenv("GITHUB_ACTOR") ?: error("GITHUB_ACTOR is not found")
+                this.password = project.findProperty("gpr.key") as String? ?: System.getenv("GITHUB_TOKEN") ?: error("GITHUB_TOKEN is not found")
             }
         }
     }
