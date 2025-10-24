@@ -4,45 +4,57 @@ import kotlin.reflect.KClass
 
 public abstract class AbstractProgram2<TTheme, TScreen, TRouter, TApplication> : AbstractProgram, DependencyProvider where TTheme : AbstractTheme, TScreen : AbstractScreen, TRouter : AbstractRouter, TApplication : AbstractApplication {
 
-    protected var Theme: TTheme
+    protected var Theme: TTheme? = null
         get() {
             check(!this.IsClosed)
             return field
         }
-    protected var Screen: TScreen
+        set(value) {
+            check(!this.IsClosed)
+            field = value
+        }
+    protected var Screen: TScreen? = null
         get() {
             check(!this.IsClosed)
             return field
         }
-    protected var Router: TRouter
+        set(value) {
+            check(!this.IsClosed)
+            field = value
+        }
+    protected var Router: TRouter? = null
         get() {
             check(!this.IsClosed)
             return field
         }
-    protected var Application: TApplication
+        set(value) {
+            check(!this.IsClosed)
+            field = value
+        }
+    protected var Application: TApplication? = null
         get() {
             check(!this.IsClosed)
             return field
+        }
+        set(value) {
+            check(!this.IsClosed)
+            field = value
         }
 
-    public constructor (theme: TTheme, screen: TScreen, router: TRouter, application: TApplication) {
-        this.Theme = theme
-        this.Screen = screen
-        this.Router = router
-        this.Application = application
+    public constructor() {
     }
 
-    public override fun OnClose() {
+    protected override fun OnClose() {
         super.OnClose()
     }
 
     public override fun GetDependency(clazz: KClass<*>, argument: Any?): Any? {
         check(!this.IsClosed)
         return when {
-            clazz.java.isAssignableFrom(this.Theme::class.java) -> this.Theme
-            clazz.java.isAssignableFrom(this.Screen::class.java) -> this.Screen
-            clazz.java.isAssignableFrom(this.Router::class.java) -> this.Router
-            clazz.java.isAssignableFrom(this.Application::class.java) -> this.Application
+            this.Theme != null && clazz.java.isAssignableFrom(this.Theme!!::class.java) -> this.Theme
+            this.Screen != null && clazz.java.isAssignableFrom(this.Screen!!::class.java) -> this.Screen
+            this.Router != null && clazz.java.isAssignableFrom(this.Router!!::class.java) -> this.Router
+            this.Application != null && clazz.java.isAssignableFrom(this.Application!!::class.java) -> this.Application
             else -> null
         }
     }

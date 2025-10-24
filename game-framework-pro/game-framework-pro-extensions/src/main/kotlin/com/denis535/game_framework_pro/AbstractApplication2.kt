@@ -8,11 +8,11 @@ public abstract class AbstractApplication2 : AbstractApplication {
             return field
         }
 
-    public constructor (provider: DependencyProvider) {
+    public constructor(provider: DependencyProvider) {
         this.Provider = provider
     }
 
-    public override fun OnClose() {
+    protected override fun OnClose() {
         super.OnClose()
     }
 

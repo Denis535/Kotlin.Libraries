@@ -14,7 +14,7 @@ public abstract class AbstractScreen : AbstractCloseable {
         this.Machine = TreeMachine<AbstractScreen, AbstractWidget>(this)
     }
 
-    public override fun OnClose() {
+    protected override fun OnClose() {
         this.Machine.close()
     }
 
@@ -43,7 +43,7 @@ public abstract class AbstractWidget {
         }
     protected val NodeMutable: Node<AbstractScreen, AbstractWidget>
         get() {
-            check(!this.IsClosed)
+            check(!field.IsClosed)
             return field
         }
 
@@ -158,14 +158,17 @@ public abstract class AbstractWidget {
 
 public abstract class AbstractViewableWidget : AbstractWidget {
 
-    public val View: Any
+    public var View: Any? = null
         get() {
             check(!this.IsClosed)
             return field
         }
+        protected set(value) {
+            check(!this.IsClosed)
+            field = value
+        }
 
-    public constructor(view: Any) {
-        this.View = view
+    public constructor() {
     }
 
 }

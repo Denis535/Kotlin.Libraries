@@ -14,7 +14,7 @@ public abstract class AbstractTheme : AbstractCloseable {
         this.Machine = StateMachine<AbstractTheme, AbstractPlayList>(this)
     }
 
-    public override fun OnClose() {
+    protected override fun OnClose() {
         this.Machine.close()
     }
 
@@ -43,7 +43,7 @@ public abstract class AbstractPlayList {
         }
     protected val StateMutable: State<AbstractTheme, AbstractPlayList>
         get() {
-            check(!this.IsClosed)
+            check(!field.IsClosed)
             return field
         }
 

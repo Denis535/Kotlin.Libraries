@@ -8,11 +8,11 @@ public abstract class AbstractPlayer2 : AbstractPlayer {
             return field
         }
 
-    public constructor (provider: DependencyProvider) {
+    public constructor(provider: DependencyProvider) {
         this.Provider = provider
     }
 
-    public override fun OnClose() {
+    protected override fun OnClose() {
         super.OnClose()
     }
 

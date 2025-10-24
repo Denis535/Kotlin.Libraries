@@ -5,8 +5,8 @@ plugins {
 }
 
 dependencies {
-    this.implementation("io.github.denis535:state-machine-pro:1.0.1")
-    this.implementation("io.github.denis535:tree-machine-pro:1.0.1")
+    this.api("io.github.denis535:state-machine-pro:1.0.2")
+    this.api("io.github.denis535:tree-machine-pro:1.0.2")
     this.testImplementation(this.kotlin("test"))
 }
 

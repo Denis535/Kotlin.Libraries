@@ -18,13 +18,13 @@ public abstract class AbstractScreen2<TRouter, TApplication> : AbstractScreen wh
             return field
         }
 
-    public constructor (provider: DependencyProvider) {
+    public constructor(provider: DependencyProvider) {
         this.Provider = provider
         this.Router = provider.RequireDependency<TRouter>(AbstractRouter::class)
         this.Application = provider.RequireDependency<TApplication>(AbstractApplication::class)
     }
 
-    public override fun OnClose() {
+    protected override fun OnClose() {
         super.OnClose()
     }
 
@@ -38,7 +38,7 @@ public abstract class AbstractWidget2 : AbstractWidget {
             return field
         }
 
-    public constructor (provider: DependencyProvider) {
+    public constructor(provider: DependencyProvider) {
         this.Provider = provider
     }
 
@@ -52,7 +52,7 @@ public abstract class AbstractViewableWidget2 : AbstractViewableWidget {
             return field
         }
 
-    public constructor (view: Any, provider: DependencyProvider) : super(view) {
+    public constructor(provider: DependencyProvider)  {
         this.Provider = provider
     }
 

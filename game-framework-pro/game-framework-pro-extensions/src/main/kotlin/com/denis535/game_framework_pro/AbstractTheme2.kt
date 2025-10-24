@@ -18,13 +18,13 @@ public abstract class AbstractTheme2<TRouter, TApplication> : AbstractTheme wher
             return field
         }
 
-    public constructor (provider: DependencyProvider) {
+    public constructor(provider: DependencyProvider) {
         this.Provider = provider
         this.Router = provider.RequireDependency<TRouter>(AbstractRouter::class)
         this.Application = provider.RequireDependency<TApplication>(AbstractApplication::class)
     }
 
-    public override fun OnClose() {
+    protected override fun OnClose() {
         super.OnClose()
     }
 
@@ -38,7 +38,7 @@ public abstract class AbstractPlayList2 : AbstractPlayList {
             return field
         }
 
-    public constructor (provider: DependencyProvider) {
+    public constructor(provider: DependencyProvider) {
         this.Provider = provider
     }
 

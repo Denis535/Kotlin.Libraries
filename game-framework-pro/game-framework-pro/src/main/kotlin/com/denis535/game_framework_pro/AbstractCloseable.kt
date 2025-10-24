@@ -26,6 +26,6 @@ public abstract class AbstractCloseable : AutoCloseable {
         this.Lifecycle = ELifecycle.Closed
     }
 
-    public abstract fun OnClose()
+    protected abstract fun OnClose()
 
 }
