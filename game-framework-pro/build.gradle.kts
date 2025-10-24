@@ -1,7 +1,5 @@
 plugins {
     this.id("java-platform")
-    this.id("maven-publish")
-    this.id("signing")
 }
 
 subprojects {
@@ -16,6 +14,11 @@ subprojects {
                 this.username = this@subprojects.project.findProperty("gpr.user") as String? ?: System.getenv("GITHUB_ACTOR") ?: error("GITHUB_ACTOR is not found")
                 this.password = this@subprojects.project.findProperty("gpr.key") as String? ?: System.getenv("GITHUB_TOKEN") ?: error("GITHUB_TOKEN is not found")
             }
+        }
+    }
+    this.afterEvaluate {
+        this.tasks.withType<Jar> {
+            this.archiveBaseName = this@afterEvaluate.rootProject.name + "-" + this@afterEvaluate.project.name
         }
     }
 }

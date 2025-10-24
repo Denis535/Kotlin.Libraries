@@ -5,7 +5,7 @@ plugins {
 }
 
 dependencies {
-    this.implementation(this.project(":game-framework-pro"))
+    this.implementation(this.project(":core"))
     this.testImplementation(this.kotlin("test"))
 }
 
