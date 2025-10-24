@@ -17,7 +17,7 @@ public interface DependencyProvider {
 //}
 
 fun <T : Any> DependencyProvider.RequireDependency(clazz: KClass<*>, argument: Any? = null): T {
-    return this.GetDependency(clazz, argument) as T? ?: error("Dependency ${clazz} (${argument ?: "Null"}) was not found")
+    return this.GetDependency(clazz, argument) as T? ?: error("Dependency $clazz (${argument ?: "Null"}) was not found")
 }
 
 fun <T : Any> DependencyProvider.GetDependency(clazz: KClass<*>, argument: Any? = null): T? {

@@ -41,8 +41,7 @@ public abstract class AbstractProgram2<TTheme, TScreen, TRouter, TApplication> :
             field = value
         }
 
-    public constructor() {
-    }
+    public constructor()
 
     protected override fun OnClose() {
         super.OnClose()

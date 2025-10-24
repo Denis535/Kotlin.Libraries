@@ -168,8 +168,7 @@ public abstract class AbstractViewableWidget : AbstractWidget {
             field = value
         }
 
-    public constructor() {
-    }
+    public constructor()
 
 }
 

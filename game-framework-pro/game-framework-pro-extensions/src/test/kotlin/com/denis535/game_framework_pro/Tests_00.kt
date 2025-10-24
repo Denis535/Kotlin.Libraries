@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Assertions.*
 public class Tests_00 {
 
     @Test
-    fun Test_00() {
+    public fun Test_00() {
         Program().use {
         }
     }
