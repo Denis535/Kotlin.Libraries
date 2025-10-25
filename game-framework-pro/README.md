@@ -39,5 +39,6 @@ The framework that allows you to design high-quality architecture of your game p
 
 # Links
 
+- https://github.com/Denis535/Kotlin.Libraries/packages
 - https://github.com/Denis535/Kotlin.Libraries/tree/main/game-framework-pro
 - https://medium.com/@Denis535/gameframework-pro-6d00c75ff491
