@@ -4,8 +4,8 @@ plugins {
     this.id("signing")
 }
 
-group = findProperty("project.group") as String
-version = findProperty("project.version") as String
+group = project.group.toString()
+version = project.version.toString()
 
 dependencies {
     this.testImplementation(this.kotlin("test"))
@@ -21,7 +21,10 @@ java {
 }
 
 kotlin {
-    this.jvmToolchain(24)
+    this.jvmToolchain(21)
+    this.compilerOptions {
+        this.jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21
+    }
 }
 
 tasks.test {
@@ -32,13 +35,13 @@ publishing {
     this.publications {
         this.create<MavenPublication>("mavenJava") {
             this.from(components["java"])
-            this.groupId = findProperty("project.group") as String
-            this.artifactId = findProperty("project.name") as String
-            this.version = findProperty("project.version") as String
+            this.groupId = project.group.toString()
+            this.artifactId = project.name
+            this.version = project.version.toString()
             this.pom {
-                this.name = findProperty("project.name") as String
-                this.description = findProperty("project.description") as String
-                this.url = findProperty("project.url") as String
+                this.name = project.name
+                this.description = project.description
+                this.url = project.findProperty("url").toString()
                 this.licenses {
                     this.license {
                         this.name = "MIT License"
