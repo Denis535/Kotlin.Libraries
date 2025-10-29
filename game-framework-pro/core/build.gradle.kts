@@ -1,5 +1,5 @@
 plugins {
-    this.kotlin("jvm") version "2.2.20"
+    this.kotlin("jvm") version "2.2.21"
     this.id("maven-publish")
     this.id("signing")
 }
@@ -15,7 +15,10 @@ java {
 }
 
 kotlin {
-    this.jvmToolchain(24)
+    this.jvmToolchain(21)
+    this.compilerOptions {
+        this.jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21
+    }
 }
 
 tasks.test {
@@ -64,3 +67,9 @@ publishing {
         }
     }
 }
+//signing {
+//    this.useInMemoryPgpKeys(
+//        File("${projectDir}/0x32672C2E-sec.asc").readText(), "qwerty"
+//    )
+//    this.sign(publishing.publications["mavenJava"])
+//}
