@@ -1,5 +1,6 @@
 plugins {
     this.kotlin("jvm") version "2.2.20"
+    this.id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
     this.id("maven-publish")
     this.id("signing")
 }
@@ -62,21 +63,30 @@ publishing {
             }
         }
     }
+//    this.repositories {
+//        this.maven {
+//            this.name = "GitHubPackages"
+//            this.url = uri("https://maven.pkg.github.com/Denis535/Kotlin.Libraries")
+//            this.credentials {
+//                this.username = System.getenv("GITHUB_ACTOR")
+//                this.password = System.getenv("GITHUB_TOKEN")
+//            }
+//        }
+//    }
+}
+
+nexusPublishing {
     this.repositories {
-        this.maven {
-            this.name = "GitHubPackages"
-            this.url = uri("https://maven.pkg.github.com/Denis535/Kotlin.Libraries")
-            this.credentials {
-                this.username = project.findProperty("gpr.user") as String? ?: System.getenv("GITHUB_ACTOR") ?: error("GITHUB_ACTOR is not found")
-                this.password = project.findProperty("gpr.key") as String? ?: System.getenv("GITHUB_TOKEN") ?: error("GITHUB_TOKEN is not found")
-            }
+        this.sonatype {
+            this.username = System.getenv("SONATYPE_USERNAME")
+            this.password = System.getenv("SONATYPE_PASSWORD")
         }
     }
 }
 
-//signing {
-//    this.useInMemoryPgpKeys(
-//        File("${projectDir}/0x32672C2E-sec.asc").readText(), "qwerty"
-//    )
-//    this.sign(publishing.publications["mavenJava"])
-//}
+signing {
+    this.useInMemoryPgpKeys(
+        File("${projectDir}/0x32672C2E-sec.asc").readText(), "qwerty"
+    )
+    this.sign(publishing.publications["mavenJava"])
+}
