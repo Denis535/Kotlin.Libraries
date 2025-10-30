@@ -86,7 +86,7 @@ nexusPublishing {
 
 signing {
     this.useInMemoryPgpKeys(
-        File("${projectDir}/0x32672C2E-sec.asc").readText(), "qwerty"
+        File("${projectDir}/../0x32672C2E-sec.asc").readText(), "qwerty"
     )
     this.sign(publishing.publications["mavenJava"])
 }
