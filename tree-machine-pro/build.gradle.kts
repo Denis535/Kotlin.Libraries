@@ -56,8 +56,8 @@ publishing {
                     }
                 }
                 this.scm {
-                    this.connection = "scm:git:git://https://github.com/Denis535/Kotlin.Libraries.git"
-                    this.developerConnection = "scm:git:ssh://https://github.com/Denis535/Kotlin.Libraries.git"
+                    this.connection = "scm:git:git://github.com/Denis535/Kotlin.Libraries.git"
+                    this.developerConnection = "scm:git:ssh://git@github.com:Denis535/Kotlin.Libraries.git"
                     this.url = "https://github.com/Denis535/Kotlin.Libraries"
                 }
             }
@@ -78,15 +78,15 @@ publishing {
 nexusPublishing {
     this.repositories {
         this.sonatype {
-            this.username = System.getenv("SONATYPE_USERNAME")
-            this.password = System.getenv("SONATYPE_PASSWORD")
+            this.username.set(System.getenv("SONATYPE_USERNAME"))
+            this.password.set(System.getenv("SONATYPE_PASSWORD"))
         }
     }
 }
 
 signing {
     this.useInMemoryPgpKeys(
-        File("${projectDir}/../0x32672C2E-sec.asc").readText(), "qwerty"
+        File("${projectDir}/../0x1F21E44D-sec.asc").readText(), "qwerty"
     )
     this.sign(publishing.publications["mavenJava"])
 }
