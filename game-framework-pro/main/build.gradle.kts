@@ -30,7 +30,7 @@ publishing {
         this.create<MavenPublication>("mavenJava") {
             this.from(components["java"])
             this.groupId = project.group.toString()
-            this.artifactId = rootProject.name + "-" + project.name
+            this.artifactId = rootProject.name
             this.version = project.version.toString()
             this.pom {
                 this.name = this@create.artifactId

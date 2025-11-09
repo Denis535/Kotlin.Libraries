@@ -4,5 +4,5 @@ plugins {
 
 rootProject.name = "game-framework-pro"
 
-include("core")
+include("main")
 include("extensions")

@@ -5,7 +5,7 @@ plugins {
 }
 
 dependencies {
-    this.implementation(this.project(":core"))
+    this.implementation(this.project(":main"))
     this.testImplementation(this.kotlin("test"))
 }
 
