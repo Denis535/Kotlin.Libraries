@@ -67,9 +67,10 @@ publishing {
         }
     }
 }
-//signing {
-//    this.useInMemoryPgpKeys(
-//        File("${projectDir}/0x32672C2E-sec.asc").readText(), "qwerty"
-//    )
-//    this.sign(publishing.publications["mavenJava"])
-//}
+
+signing {
+    this.useInMemoryPgpKeys(
+        File("${projectDir}/../../0x1F21E44D-sec.asc").readText(), "qwerty"
+    )
+    this.sign(publishing.publications["mavenJava"])
+}
