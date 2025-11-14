@@ -35,7 +35,6 @@ public abstract class AbstractPlayList2 : AbstractPlayList {
             return DependencyProvider.Instance!!
         }
 
-    public constructor() {
-    }
+    public constructor()
 
 }

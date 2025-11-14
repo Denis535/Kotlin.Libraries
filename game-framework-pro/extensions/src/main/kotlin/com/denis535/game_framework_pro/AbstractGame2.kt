@@ -7,8 +7,7 @@ public abstract class AbstractGame2 : AbstractGame {
             return DependencyProvider.Instance!!
         }
 
-    public constructor() {
-    }
+    public constructor()
 
     protected override fun OnClose() {
         super.OnClose()

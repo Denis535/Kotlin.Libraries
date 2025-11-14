@@ -6,9 +6,6 @@ public interface DependencyProvider {
     public companion object {
 
         internal var Instance: DependencyProvider? = null
-            get() {
-                return field
-            }
             set(value) {
                 if (value != null) {
                     check(field == null)

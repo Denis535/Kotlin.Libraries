@@ -35,8 +35,7 @@ public abstract class AbstractWidget2 : AbstractWidget {
             return DependencyProvider.Instance!!
         }
 
-    public constructor() {
-    }
+    public constructor()
 
 }
 
@@ -47,7 +46,6 @@ public abstract class AbstractViewableWidget2 : AbstractViewableWidget {
             return DependencyProvider.Instance!!
         }
 
-    public constructor() {
-    }
+    public constructor()
 
 }

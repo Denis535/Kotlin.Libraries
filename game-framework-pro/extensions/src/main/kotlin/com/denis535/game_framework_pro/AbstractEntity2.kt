@@ -7,8 +7,7 @@ public abstract class AbstractEntity2 : AbstractPlayer {
             return DependencyProvider.Instance!!
         }
 
-    public constructor() {
-    }
+    public constructor()
 
     protected override fun OnClose() {
         super.OnClose()
