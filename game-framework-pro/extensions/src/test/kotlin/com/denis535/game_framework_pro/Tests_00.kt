@@ -7,8 +7,7 @@ public class Tests_00 {
 
     @Test
     public fun Test_00() {
-        Program().use {
-        }
+        Program().use {}
     }
 
 }
@@ -16,10 +15,10 @@ public class Tests_00 {
 internal class Program : AbstractProgram2<Theme, Screen, Router, Application> {
 
     public constructor() {
-        this.Application = Application(this)
-        this.Router = Router(this)
-        this.Screen = Screen(this)
-        this.Theme = Theme(this)
+        this.Application = Application()
+        this.Router = Router()
+        this.Screen = Screen()
+        this.Theme = Theme()
     }
 
     protected override fun OnClose() {
@@ -34,7 +33,7 @@ internal class Program : AbstractProgram2<Theme, Screen, Router, Application> {
 // UI
 internal class Theme : AbstractTheme2<Router, Application> {
 
-    public constructor(provider: DependencyProvider) : super(provider) {
+    public constructor() {
         this.Machine.SetRoot(MainPlayList().State, null, null)
         this.Machine.SetRoot(GamePlayList().State, null, null)
     }
@@ -78,8 +77,8 @@ internal class GamePlayList : AbstractPlayList {
 // UI
 internal class Screen : AbstractScreen2<Router, Application> {
 
-    public constructor(provider: DependencyProvider) : super(provider) {
-        this.Machine.SetRoot(RootWidget(provider).Node, null, null)
+    public constructor() {
+        this.Machine.SetRoot(RootWidget().Node, null, null)
     }
 
     protected override fun OnClose() {
@@ -91,9 +90,9 @@ internal class Screen : AbstractScreen2<Router, Application> {
 
 internal class RootWidget : AbstractWidget2 {
 
-    public constructor(provider: DependencyProvider) : super(provider) {
-        this.NodeMutable.AddChild(MainWidget(provider).Node, null)
-        this.NodeMutable.AddChild(GameWidget(provider).Node, null)
+    public constructor() {
+        this.NodeMutable.AddChild(MainWidget().Node, null)
+        this.NodeMutable.AddChild(GameWidget().Node, null)
     }
 
     protected override fun OnClose() {
@@ -113,7 +112,7 @@ internal class MainWidget : AbstractViewableWidget2 {
         public constructor()
     }
 
-    public constructor(provider: DependencyProvider) : super(provider) {
+    public constructor() {
         this.View = View()
     }
 
@@ -134,7 +133,7 @@ internal class GameWidget : AbstractViewableWidget2 {
         public constructor()
     }
 
-    public constructor(provider: DependencyProvider) : super(provider) {
+    public constructor() {
         this.View = View()
     }
 
@@ -152,7 +151,7 @@ internal class GameWidget : AbstractViewableWidget2 {
 // UI
 internal class Router : AbstractRouter2<Theme, Screen, Application> {
 
-    public constructor(provider: DependencyProvider) : super(provider)
+    public constructor()
 
     protected override fun OnClose() {
         super.OnClose()
@@ -164,8 +163,8 @@ internal class Application : AbstractApplication2 {
 
     public val Game: Game
 
-    public constructor(provider: DependencyProvider) : super(provider) {
-        this.Game = Game(this.Provider)
+    public constructor() {
+        this.Game = Game()
     }
 
     protected override fun OnClose() {
@@ -177,7 +176,7 @@ internal class Application : AbstractApplication2 {
 // Domain
 internal class Game : AbstractGame2 {
 
-    public constructor(provider: DependencyProvider) : super(provider)
+    public constructor()
 
     protected override fun OnClose() {
         super.OnClose()

@@ -4,12 +4,10 @@ public abstract class AbstractGame2 : AbstractGame {
 
     protected val Provider: DependencyProvider
         get() {
-            check(!this.IsClosed)
-            return field
+            return DependencyProvider.Instance!!
         }
 
-    public constructor(provider: DependencyProvider) {
-        this.Provider = provider
+    public constructor() {
     }
 
     protected override fun OnClose() {

@@ -1,6 +1,6 @@
 package com.denis535.game_framework_pro
 
-public abstract class AbstractApplication2 : AbstractApplication {
+public abstract class AbstractEntity2 : AbstractPlayer {
 
     protected val Provider: DependencyProvider
         get() {

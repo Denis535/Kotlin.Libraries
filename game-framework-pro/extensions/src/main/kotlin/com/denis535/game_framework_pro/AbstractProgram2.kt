@@ -41,9 +41,12 @@ public abstract class AbstractProgram2<TTheme, TScreen, TRouter, TApplication> :
             field = value
         }
 
-    public constructor()
+    public constructor() {
+        DependencyProvider.Instance = this
+    }
 
     protected override fun OnClose() {
+        DependencyProvider.Instance = null
         super.OnClose()
     }
 

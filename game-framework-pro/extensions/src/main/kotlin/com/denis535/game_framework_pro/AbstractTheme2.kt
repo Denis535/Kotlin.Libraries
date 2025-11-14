@@ -4,8 +4,7 @@ public abstract class AbstractTheme2<TRouter, TApplication> : AbstractTheme wher
 
     protected val Provider: DependencyProvider
         get() {
-            check(!this.IsClosed)
-            return field
+            return DependencyProvider.Instance!!
         }
     protected val Router: TRouter
         get() {
@@ -18,10 +17,9 @@ public abstract class AbstractTheme2<TRouter, TApplication> : AbstractTheme wher
             return field
         }
 
-    public constructor(provider: DependencyProvider) {
-        this.Provider = provider
-        this.Router = provider.RequireDependency<TRouter>(AbstractRouter::class)
-        this.Application = provider.RequireDependency<TApplication>(AbstractApplication::class)
+    public constructor() {
+        this.Router = this.Provider.RequireDependency<TRouter>(AbstractRouter::class)
+        this.Application = this.Provider.RequireDependency<TApplication>(AbstractApplication::class)
     }
 
     protected override fun OnClose() {
@@ -34,12 +32,10 @@ public abstract class AbstractPlayList2 : AbstractPlayList {
 
     protected val Provider: DependencyProvider
         get() {
-            check(!this.IsClosed)
-            return field
+            return DependencyProvider.Instance!!
         }
 
-    public constructor(provider: DependencyProvider) {
-        this.Provider = provider
+    public constructor() {
     }
 
 }

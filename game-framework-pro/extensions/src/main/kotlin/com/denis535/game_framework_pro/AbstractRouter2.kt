@@ -4,8 +4,7 @@ public abstract class AbstractRouter2<TTheme, TScreen, TApplication> : AbstractR
 
     protected val Provider: DependencyProvider
         get() {
-            check(!this.IsClosed)
-            return field
+            return DependencyProvider.Instance!!
         }
     protected val Theme: TTheme
         get() {
@@ -23,9 +22,8 @@ public abstract class AbstractRouter2<TTheme, TScreen, TApplication> : AbstractR
             return field
         }
 
-    public constructor(provider: DependencyProvider) {
-        this.Provider = provider
-        this.Application = provider.RequireDependency<TApplication>(AbstractApplication::class)
+    public constructor() {
+        this.Application = this.Provider.RequireDependency<TApplication>(AbstractApplication::class)
     }
 
     protected override fun OnClose() {

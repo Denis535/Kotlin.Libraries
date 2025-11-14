@@ -36,6 +36,7 @@ The framework that allows you to design high-quality architecture of your game p
 - Domain
     - AbstractGame2
     - AbstractPlayer2
+    - AbstractEntity2
 
 # Links
 
