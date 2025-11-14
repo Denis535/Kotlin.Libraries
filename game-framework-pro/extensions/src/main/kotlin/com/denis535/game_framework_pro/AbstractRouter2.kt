@@ -2,9 +2,9 @@ package com.denis535.game_framework_pro
 
 public abstract class AbstractRouter2<TTheme, TScreen, TApplication> : AbstractRouter where TTheme : AbstractTheme, TScreen : AbstractScreen, TApplication : AbstractApplication {
 
-    protected val Provider: DependencyProvider
+    protected val Provider: AbstractDependencyProvider
         get() {
-            return DependencyProvider.Instance!!
+            return AbstractDependencyProvider.Instance!!
         }
     protected val Theme: TTheme
         get() {

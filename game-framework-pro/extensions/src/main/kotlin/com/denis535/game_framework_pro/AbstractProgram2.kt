@@ -2,7 +2,7 @@ package com.denis535.game_framework_pro
 
 import kotlin.reflect.KClass
 
-public abstract class AbstractProgram2<TTheme, TScreen, TRouter, TApplication> : AbstractProgram, DependencyProvider where TTheme : AbstractTheme, TScreen : AbstractScreen, TRouter : AbstractRouter, TApplication : AbstractApplication {
+public abstract class AbstractProgram2<TTheme, TScreen, TRouter, TApplication> : AbstractProgram, AbstractDependencyProvider where TTheme : AbstractTheme, TScreen : AbstractScreen, TRouter : AbstractRouter, TApplication : AbstractApplication {
 
     protected var Theme: TTheme? = null
         get() {
@@ -42,11 +42,11 @@ public abstract class AbstractProgram2<TTheme, TScreen, TRouter, TApplication> :
         }
 
     public constructor() {
-        DependencyProvider.Instance = this
+        AbstractDependencyProvider.Instance = this
     }
 
     protected override fun OnClose() {
-        DependencyProvider.Instance = null
+        AbstractDependencyProvider.Instance = null
         super.OnClose()
     }
 
