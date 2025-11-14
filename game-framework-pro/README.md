@@ -16,7 +16,7 @@ The framework that allows you to design high-quality architecture of your game p
     - AbstractRouter
 - App
     - AbstractApplication
-- Domain (Business, Game)
+- Game
     - AbstractGame
     - AbstractPlayer
     - AbstractEntity (Character, Thing, Vehicle, Environment)
@@ -33,7 +33,7 @@ The framework that allows you to design high-quality architecture of your game p
     - AbstractRouter2
 - App
     - AbstractApplication2
-- Domain
+- Game
     - AbstractGame2
     - AbstractPlayer2
     - AbstractEntity2
