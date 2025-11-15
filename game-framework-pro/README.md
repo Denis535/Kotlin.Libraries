@@ -41,6 +41,6 @@ The framework that allows you to design high-quality architecture of your game p
 # Links
 
 - https://medium.com/@Denis535/gameframework-pro-6d00c75ff491
-- https://medium.com/@Denis535/best-practices-of-designing-software-architecture-bf21ba790b1a
+- https://medium.com/@Denis535/best-practices-for-software-architecture-design-bf21ba790b1a
 - https://github.com/Denis535/Kotlin.Libraries/tree/main/game-framework-pro
 - https://github.com/Denis535/Kotlin.Libraries/packages
