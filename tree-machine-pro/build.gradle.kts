@@ -92,7 +92,7 @@ publishing {
 
 signing {
     this.useInMemoryPgpKeys(
-        File("${projectDir}/../0x1F21E44D-sec.asc").readText(), "qwerty"
+        File("../0x1F21E44D-sec.asc").readText(), File("../password.txt").readText()
     )
     this.sign(publishing.publications["mavenJava"])
 }
