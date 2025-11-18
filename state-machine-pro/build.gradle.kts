@@ -63,6 +63,12 @@ publishing {
             }
         }
     }
+    this.repositories {
+        this.maven {
+            this.name = "Local"
+            this.url = uri("dist")
+        }
+    }
 //    this.repositories {
 //        this.maven {
 //            this.name = "GitHubPackages"
@@ -75,14 +81,14 @@ publishing {
 //    }
 }
 
-nexusPublishing {
-    this.repositories {
-        this.sonatype {
-            this.username.set(System.getenv("SONATYPE_USERNAME"))
-            this.password.set(System.getenv("SONATYPE_PASSWORD"))
-        }
-    }
-}
+//nexusPublishing {
+//    this.repositories {
+//        this.sonatype {
+//            this.username.set(System.getenv("SONATYPE_USERNAME"))
+//            this.password.set(System.getenv("SONATYPE_PASSWORD"))
+//        }
+//    }
+//}
 
 signing {
     this.useInMemoryPgpKeys(
