@@ -90,9 +90,9 @@ publishing {
 //    }
 //}
 
-signing {
-    this.useInMemoryPgpKeys(
-        File("../0x1F21E44D-sec.asc").readText(), File("../password.txt").readText()
-    )
-    this.sign(publishing.publications["mavenJava"])
-}
+//signing {
+//    this.useInMemoryPgpKeys(
+//        File("../0x1F21E44D-sec.asc").readText(), File("../password.txt").readText()
+//    )
+//    this.sign(publishing.publications["mavenJava"])
+//}
