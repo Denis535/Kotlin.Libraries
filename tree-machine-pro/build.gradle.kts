@@ -1,8 +1,8 @@
 plugins {
     this.kotlin("jvm") version "2.2.20"
-    this.id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
-    this.id("maven-publish")
     this.id("signing")
+    this.id("maven-publish")
+    this.id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
 }
 
 group = project.group.toString()
@@ -32,6 +32,22 @@ tasks.test {
     this.useJUnitPlatform()
 }
 
+//signing {
+//    this.useInMemoryPgpKeys(
+//        File("../0x1F21E44D-sec.asc").readText(), File("../password.txt").readText()
+//    )
+//    this.sign(publishing.publications["mavenJava"])
+//}
+
+tasks.register<Zip>("BundleDistribution") {
+    this.group = "publishing"
+    this.description = "Create ZIP of all files in distribution folder"
+    val distributionDir = file("distribution")
+    this.from(distributionDir)
+    this.archiveFileName.set("${this.project.name}-${this.project.version}.zip")
+    this.destinationDirectory.set(distributionDir.parentFile)
+}
+
 publishing {
     this.publications {
         this.create<MavenPublication>("mavenJava") {
@@ -39,6 +55,9 @@ publishing {
             this.groupId = project.group.toString()
             this.artifactId = project.name
             this.version = project.version.toString()
+            this.artifact(tasks.named("BundleDistribution")) {
+                this.extension = "zip"
+            }
             this.pom {
                 this.name = project.name
                 this.description = project.description
@@ -90,9 +109,6 @@ publishing {
 //    }
 //}
 
-//signing {
-//    this.useInMemoryPgpKeys(
-//        File("../0x1F21E44D-sec.asc").readText(), File("../password.txt").readText()
-//    )
-//    this.sign(publishing.publications["mavenJava"])
-//}
+tasks.named("publishMavenJavaPublicationToLocalRepository") {
+    this.dependsOn("BundleDistribution")
+}
