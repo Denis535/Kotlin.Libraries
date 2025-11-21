@@ -1,13 +1,11 @@
 plugins {
     this.kotlin("jvm") version "2.2.21"
     this.id("maven-publish")
-    this.id("signing")
 }
 
-dependencies {
-    this.api("io.github.denis535:state-machine-pro:1.0.0")
-    this.api("io.github.denis535:tree-machine-pro:1.0.0")
-}
+group = project.group
+version = project.version
+description = project.description
 
 java {
     this.withSourcesJar()
@@ -21,8 +19,9 @@ kotlin {
     }
 }
 
-tasks.test {
-    this.useJUnitPlatform()
+dependencies {
+    this.api("com.github.Denis535:Kotlin.Libraries:state-machine-pro~v1.0.0")
+    this.api("com.github.Denis535:Kotlin.Libraries:tree-machine-pro~v1.0.0")
 }
 
 publishing {
@@ -30,10 +29,10 @@ publishing {
         this.create<MavenPublication>("mavenJava") {
             this.from(components["java"])
             this.groupId = project.group.toString()
-            this.artifactId = rootProject.name
+            this.artifactId = project.name
             this.version = project.version.toString()
             this.pom {
-                this.name = this@create.artifactId
+                this.name = project.name
                 this.description = project.description
                 this.url = project.findProperty("url").toString()
                 this.licenses {
@@ -49,8 +48,8 @@ publishing {
                     }
                 }
                 this.scm {
-                    this.connection = "scm:git:https://github.com/Denis535/Kotlin.Libraries.git"
-                    this.developerConnection = "scm:git:ssh://git@github.com/Denis535/Kotlin.Libraries.git"
+                    this.connection = "scm:git:git://github.com/Denis535/Kotlin.Libraries.git"
+                    this.developerConnection = "scm:git:ssh://git@github.com:Denis535/Kotlin.Libraries.git"
                     this.url = "https://github.com/Denis535/Kotlin.Libraries"
                 }
             }
@@ -58,19 +57,12 @@ publishing {
     }
     this.repositories {
         this.maven {
-            this.name = "GitHubPackages"
-            this.url = uri("https://maven.pkg.github.com/Denis535/Kotlin.Libraries")
-            this.credentials {
-                this.username = project.findProperty("gpr.user") as String? ?: System.getenv("GITHUB_ACTOR") ?: error("GITHUB_ACTOR is not found")
-                this.password = project.findProperty("gpr.key") as String? ?: System.getenv("GITHUB_TOKEN") ?: error("GITHUB_TOKEN is not found")
-            }
+            this.name = "Local"
+            this.url = uri("distribution")
         }
     }
 }
 
-signing {
-    this.useInMemoryPgpKeys(
-        File("${projectDir}/../../0x1F21E44D-sec.asc").readText(), "qwerty"
-    )
-    this.sign(publishing.publications["mavenJava"])
+tasks.test {
+    this.useJUnitPlatform()
 }
