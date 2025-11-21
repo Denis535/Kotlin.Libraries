@@ -5,16 +5,9 @@ plugins {
 //    this.id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
 }
 
-group = project.group.toString()
-version = project.version.toString()
-
-dependencies {
-    this.testImplementation(this.kotlin("test"))
-}
-
-repositories {
-    this.mavenCentral()
-}
+group = project.group
+version = project.version
+description = project.description
 
 java {
     this.withSourcesJar()
@@ -28,8 +21,12 @@ kotlin {
     }
 }
 
-tasks.test {
-    this.useJUnitPlatform()
+repositories {
+    this.mavenCentral()
+}
+
+dependencies {
+    this.testImplementation(this.kotlin("test"))
 }
 
 //signing {
@@ -75,14 +72,6 @@ publishing {
             this.name = "Local"
             this.url = uri("distribution")
         }
-//        this.maven {
-//            this.name = "GitHubPackages"
-//            this.url = uri("https://maven.pkg.github.com/Denis535/Kotlin.Libraries")
-//            this.credentials {
-//                this.username = System.getenv("GITHUB_ACTOR")
-//                this.password = System.getenv("GITHUB_TOKEN")
-//            }
-//        }
     }
 }
 
@@ -94,3 +83,7 @@ publishing {
 //        }
 //    }
 //}
+
+tasks.test {
+    this.useJUnitPlatform()
+}
