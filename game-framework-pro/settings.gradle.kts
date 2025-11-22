@@ -1,8 +1,11 @@
 plugins {
-    this.id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
+    this.id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
 rootProject.name = "game-framework-pro"
+
+include("main")
+include("extensions")
 
 dependencyResolutionManagement {
     this.repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
@@ -13,6 +16,3 @@ dependencyResolutionManagement {
         }
     }
 }
-
-include("main")
-include("extensions")
