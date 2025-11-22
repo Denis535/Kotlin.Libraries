@@ -1,5 +1,5 @@
 plugins {
-    this.kotlin("jvm") version "2.2.20"
+    this.id("org.jetbrains.kotlin.jvm") version "2.2.21"
     this.id("signing")
     this.id("maven-publish")
 //    this.id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
