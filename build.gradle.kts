@@ -3,7 +3,7 @@ plugins {
     this.id("maven-publish")
 }
 
-group = "com.github.Denis535.Kotlin.Libraries"
+group = "io.github.denis535"
 version = "v1.0.0"
 
 repositories {
