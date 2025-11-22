@@ -1,5 +1,5 @@
 plugins {
-    this.id("org.jetbrains.kotlin.jvm") version "2.2.21"
+    this.id("java-platform")
     this.id("maven-publish")
 }
 
